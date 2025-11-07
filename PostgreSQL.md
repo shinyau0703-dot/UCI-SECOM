@@ -1,42 +1,11 @@
-# PostgreSQL 結構示意圖（目前專案）
-
-## 層級關係概念
-
-- Server
-  - Database
-    - Schema
-      - Table
-        - Column
-
-## 你的實際架構（UCI-SECOM 專案）
-
-- **Server**
-  - `PostgreSQL`（本機或指定伺服器）
-
-    - **Database**
-      - `secom`
-
-        - **Schema**
-          - `public`
-
-            - **Table**
-              - `secom_data`
-
-                - **Columns（欄位）**
-                  - `time` (timestamp)
-                  - `v0` ~ `v589` (double precision)
-                  - `label` (integer)
-
----
-
-## Mermaid 圖（VS Code 可視覺化）
-
 ```mermaid
-graph TD
-
-  A[Server: PostgreSQL] --> B[Database: secom]
-  B --> C[Schema: public]
-  C --> D[Table: secom_data]
-  D --> E1[time (timestamp)]
-  D --> E2[v0 ~ v589 (double precision)]
-  D --> E3[label (integer)]
+sequenceDiagram
+    participant A as 用户
+    participant B as 系统
+    participant C as 数据库
+    
+    A->>B: 登录请求
+    B->>C: 验证用户信息
+    C-->>B: 返回验证结果
+    B-->>A: 登录成功/失败
+```
