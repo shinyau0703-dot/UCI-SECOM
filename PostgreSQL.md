@@ -1,11 +1,27 @@
+# PostgreSQL 結構示意圖（UCI-SECOM）
+
+## 層級關係概念
+- **Server**
+  - `PostgreSQL`
+    - **Database**
+      - `secom`
+        - **Schema**
+          - `public`
+            - **Table**
+              - `secom_data`
+                - **Columns**
+                  - `time` (timestamp)
+                  - `v0` ~ `v589` (double precision)
+                  - `label` (integer)
+
+## Mermaid 圖
 ```mermaid
-sequenceDiagram
-    participant A as 用户
-    participant B as 系统
-    participant C as 数据库
-    
-    A->>B: 登录请求
-    B->>C: 验证用户信息
-    C-->>B: 返回验证结果
-    B-->>A: 登录成功/失败
+flowchart TD
+  A[Server: PostgreSQL]
+  A --> B[Database: secom]
+  B --> C[Schema: public]
+  C --> D[Table: secom_data]
+  D --> E1[time timestamp]
+  D --> E2[v0 ~ v589 double precision]
+  D --> E3[label integer]
 ```
