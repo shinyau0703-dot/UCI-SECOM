@@ -1,0 +1,183 @@
+1     /* region: 已產生序文 */
+2     /* 請確認目前目錄可寫入 */
+3     data _null_;
+4         length rc 4;
+5         %let tworkloc="%sysfunc(getoption(work))";
+6         rc=dlgcdir(&tworkloc);
+7     run;
+NOTE: The current working directory is now 
+      "/opt/sas/viya/config/var/tmp/compsrv/default/7a476240-2993-42e6-9bab-7aa43d610bbc/SAS_work4AF900000174_sas-compute-server-ecc
+      4d1c8-ff27-4076-a29a-171695677b3c-p7dw2".
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+8     
+9     /* 設定選項 */
+10    title;
+11    footnote;
+12    options validvarname=any;
+13    options validmemname=extend;
+14    options dtreset date number;
+15    options device=png;
+16    
+17    /* 設定巨集變數 */
+18    %let syscc=0;
+19    %let _clientapp = %nrquote(%nrstr(SAS Studio));
+20    %let _clientappabbrev = %nrquote(%nrstr(Studio));
+21    %let _clientappversion=2024.09;
+22    %let _clientversion=;
+23    %let _sasservername=&SYSHOSTNAME;
+24    %let _sashostname=&SYSHOSTNAME;
+25    %let _sasprogramfilehost=&SYSHOSTNAME;
+26    %let _clientuserid = %nrquote(%nrstr(sandy@simentor.com.tw));
+27    %let _clientusername = %nrquote(%nrstr(sandy@simentor.com.tw));
+28    %let clientmachine = %nrquote(%nrstr());
+29    %let _clientmachine = %nrquote(%nrstr());
+30    %let _clientmode = %nrquote(%nrstr(viya));
+31    %let sasworklocation="%sysfunc(getoption(work))/";
+32    filename _cwd &sasworklocation;
+33    data _null_;
+34        call symput('_sasworkingdir',pathname('_cwd'));
+35    run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+36    filename _cwd;
+NOTE: Fileref _CWD has been deassigned.
+37    %let _sasprogramfile = %nrquote(%nrstr(sascontent:/files/files/556e437d-7c08-485b-862b-9b50f2082be4));
+38    %let _baseurl = %nrquote(%nrstr(https://azureuse011286.my-trials.sas.com/SASStudio/));
+39    %let _execenv = %nrquote(%nrstr(SASStudio));
+40    %symdel _dataout_mime_type _dataout_name _dataout_url _dataout_table / nowarn;
+41    %let _sasws_ = %bquote(%sysfunc(getoption(work)));
+42    %let _saswstemp_ = %bquote(%sysfunc(getoption(work)));
+43    
+44    /* 偵測到 SAS/Graph 和設定圖型選項 */
+45    data _null_;
+46        length rc $255;
+47        call symput("graphinit","");
+48        call symput("graphterm","");
+49        rc=tslvl('sasxgopt','n');
+50        _error_=0;
+51        if (rc^=' ') then do;
+52            call symput("graphinit","goptions reset=all gsfname=_gsfname;");
+53            call symput("graphterm","goptions noaccessible;");
+54        end;
+55    run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+56    data _null_;
+57        length rc 4;
+58        rc=sysprod("PRODNUM002");
+59        if (rc^=1) then do;
+60            call symput("graphinit","");
+61            call symput("graphterm","");
+62        end;
+63    run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+64    
+65    /* 設定 ODS 目的地 */
+66    ods _all_ close;
+67    %studio_results_directory;
+68    filename _htmlout "&_results_prefix_..html";
+69    filename _listout "&_results_prefix_..lst";
+70    filename _gsfname temp;
+71    filename _dataout "&_results_prefix_..dat";
+72    ods autonavigate off;
+73    ods graphics on;
+74    ods html5 (id=web) METATEXT='http-equiv="Content-Security-Policy" content="default-src ''none''; style-src ''unsafe-inline'';
+74  ! img-src data: ;"' device=png gpath="&_saswstemp_" path="&_saswstemp_" encoding=utf8 file=_htmlout (title='結果:
+74  ! step2_balanced.sas') style=Illuminate options(bitmap_mode='inline' outline='on' svg_mode='inline'
+74  ! css_prefix=".ods_&SYS_COMPUTE_JOB_ID" body_id="div_&SYS_COMPUTE_JOB_ID" );
+NOTE: Writing HTML5(WEB) Body file: _HTMLOUT
+75    ods listing file=_listout;
+76    &graphinit;
+77    %studio_initialize_custom_output;
+78    /* endregion */
+79    
+80    /*=======SECOM_BALANCED=============*/
+81    /* 計算兩類筆數 */
+82    proc sql noprint;
+83    select count(*) into :n1  from work.secom_cleaned where Label=1;
+84    select count(*) into :n_1 from work.secom_cleaned where Label=-1;
+85    quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+86    
+87    /* 這裡假設 Label=1 為少數類 → 目標樣本數 = &n1 */
+88    %let target=&n1;
+89    
+90    /* 分成少數類 / 多數類 */
+91    data pos neg;
+92    set work.secom_cleaned;
+93    if Label=1  then output pos;
+94    else if Label=-1 then output neg;
+95    run;
+NOTE: There were 1567 observations read from the data set WORK.SECOM_CLEANED.
+NOTE: The data set WORK.POS has 104 observations and 596 variables.
+NOTE: The data set WORK.NEG has 1463 observations and 596 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.02 秒
+      
+96    
+97    /* 對多數類做下抽樣到 &target 筆 */
+98    proc surveyselect data=neg out=neg_samp
+99           method=srs
+100          sampsize=&target
+101          seed=12345;
+102   run;
+NOTE: The data set WORK.NEG_SAMP has 104 observations and 596 variables.
+NOTE: The PROCEDURE SURVEYSELECT printed page 16.
+NOTE: PROCEDURE SURVEYSELECT used (Total process time):
+      real time           0.01 秒
+      cpu time            0.01 秒
+      
+103   
+104   /* 合併成平衡後的資料 → SECOM_BALANCED */
+105   data work.secom_balanced;
+106   set pos neg_samp;
+107   run;
+NOTE: There were 104 observations read from the data set WORK.POS.
+NOTE: There were 104 observations read from the data set WORK.NEG_SAMP.
+NOTE: The data set WORK.SECOM_BALANCED has 208 observations and 596 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+108   
+109   /*平衡後的 Label 分佈 */
+110   title "SECOM_BALANCED 的 Label 分佈";
+111   proc freq data=work.secom_balanced;
+112   tables Label;
+113   run;
+NOTE: There were 208 observations read from the data set WORK.SECOM_BALANCED.
+NOTE: The PROCEDURE FREQ printed page 17.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 秒
+      cpu time            0.02 秒
+      
+114   title;
+115   
+116   
+117   /* region: 已產生後序 */
+118   /* 關閉 ODS 目的地 */
+119   &graphterm; ;*';*";*/;run;quit;
+120   quit;run;
+121   ods html5 (id=web) close;
+122   ods listing close;
+123   %if %sysfunc(fileref(_gsfname)) lt 0 %then %do;
+124       filename _gsfname clear;
+NOTE: Fileref _GSFNAME has been deassigned.
+125   %end;
+126   %studio_capture_custom_output;
+127   /* endregion */
+128   

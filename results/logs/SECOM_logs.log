@@ -1,0 +1,1742 @@
+1    options nosource;
+3    OPTIONS NOMPRINT NOSYMBOLGEN; %let dm_debug=; %let dm_projectCasLib=Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7;
+3  ! %let
+3  ! dm_projectTablesUri=/dataMiningProjectResources/projects/a0397c41-3d58-4276-9f1d-5a6fb8b797c7/dataSources/@defaultDataSource/ta
+3  ! bles; %let
+3  ! dm_projectSources_k8s_Uri=sas-data-mining-project-resources/dataMiningProjectResources/projects/a0397c41-3d58-4276-9f1d-5a6fb8b
+3  ! 797c7/dataSources/@defaultDataSource/sources; %let dataMiningVersion=V2024.09; %let casPort=5570; %let dm_userInCHAR=N; %let
+3  ! dm_projectSettings_k8s_Uri=sas-data-mining-project-settings/dataMiningProjectSettings/settings/47c8b895-0867-41e2-a6a4-7b957012
+3  ! b11e; %let casBackupHost=; %let
+3  ! dm_projectTableSaveContentType=application/vnd.sas.analytics.data.mining.project.table.save.request+json; %let
+3  ! dm_projectSourcesAcceptType=application/vnd.sas.collection+json; %let dm_maxJobPollingAttempts=600; %let dm_rocbins=100; %let
+3  ! dm_projectSettingsUri=/dataMiningProjectSettings/settings/47c8b895-0867-41e2-a6a4-7b957012b11e; %let
+3  ! dm_projectSettingsMediaType=application/vnd.sas.analytics.data.mining.project.settings+json; %let
+3  ! casHost=sas-cas-server-default-client; %let dm_dsCasLib=%nrbquote(CASUSER(sandy@simentor.com.tw)); %let
+3  ! dm_projectSourcesUri=/dataMiningProjectResources/projects/a0397c41-3d58-4276-9f1d-5a6fb8b797c7/dataSources/@defaultDataSource/s
+3  ! ources; %let
+3  ! dm_projectTables_k8s_Uri=sas-data-mining-project-resources/dataMiningProjectResources/projects/a0397c41-3d58-4276-9f1d-5a6fb8b7
+3  ! 97c7/dataSources/@defaultDataSource/tables; %let dm_projectTableAcceptType=application/vnd.sas.data.table+json; %let
+3  ! dm_jobAcceptType=application/vnd.sas.job.execution.job+json; %let dm_locale=zh_TW; %let
+3  ! dm_projectId=a0397c41-3d58-4276-9f1d-5a6fb8b797c7; %let casSessionId=dfa60f1a-e6af-bb45-90db-abf5e92748e0;  %dmcas;%let
+3  ! dm_oversampling=N;
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+2                                                            SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+
+NOTE: Libref DMCASMCR was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/dmcasmcr
+NOTE: Fileref _DMFREF has been deassigned.
+45926   %let dm_samplingpct=50;
+45927   %dmcas_partition_srv(
+45928         guid=a0397c41-3d58-4276-9f1d-5a6fb8b797c7,
+45929         table=%nrbquote(SECOM_BALANCED),
+45930         train=60,
+45931         valid=30,
+45932         test=10,
+45933         method=STRATIFY
+45934     );
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Libref DMLIB was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/partition
+NOTE: The session DMCASID connected successfully to Cloud Analytic Services sas-cas-server-default-client using port 5570. The UUID 
+      is dfa60f1a-e6af-bb45-90db-abf5e92748e0. The user is sandy@simentor.com.tw and the active caslib is 
+      CASUSER(sandy@simentor.com.tw).
+NOTE: The SAS option SESSREF was updated with the value DMCASID.
+NOTE: The SAS macro _SESSREF_ was updated with the value DMCASID.
+NOTE: The session is using 0 workers.
+NOTE: 'Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7' is now the active caslib.
+NOTE: The CAS statement request to update one or more session options for session DMCASID completed.
+NOTE: Libref DMCASLIB was successfully assigned as follows: 
+      Engine:        CAS 
+      Physical Name: dfa60f1a-e6af-bb45-90db-abf5e92748e0
+
+NOTE: Active Session now DMCASID.
+NOTE: Grid node action status report: 1 nodes, 17 total actions executed.
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Active Session now DMCASID.
+NOTE: Grid node action status report: 1 nodes, 18 total actions executed.
+LIN X64
+
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+3                                                            SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      cpu time            0.00 秒
+      
+
+NOTE: Actual CAS OSFamily=LIN X64
+NOTE: A SAS Library associated with a caslib can only reference library member names that conform to SAS Library naming conventions.
+NOTE: CASLIB CASUSER(sandy@simentor.com.tw) for session DMCASID will be mapped to SAS Library CASUSER.
+NOTE: CASLIB Formats for session DMCASID will be mapped to SAS Library FORMATS.
+NOTE: CASLIB ModelPerformanceData for session DMCASID will not be mapped to SAS Library ModelPerformanceData. The CASLIB name is 
+      not valid for use as a libref.
+NOTE: CASLIB Models for session DMCASID will be mapped to SAS Library MODELS.
+NOTE: CASLIB Public for session DMCASID will be mapped to SAS Library PUBLIC.
+NOTE: CASLIB Samples for session DMCASID will be mapped to SAS Library SAMPLES.
+NOTE: Active Session now DMCASID.
+
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Libref DMDSLIB was successfully assigned as follows: 
+      Engine:        CAS 
+      Physical Name: dfa60f1a-e6af-bb45-90db-abf5e92748e0
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.01 秒
+      cpu time            0.01 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_Get_dmc_content.json
+
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 2 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+4                                                            SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: Variable id is uninitialized.
+NOTE: Variable folder_nm is uninitialized.
+NOTE: Variable file_nm is uninitialized.
+NOTE: Variable ext_nm is uninitialized.
+NOTE: Variable type_cd is uninitialized.
+NOTE: Variable engine_nm is uninitialized.
+NOTE: Variable property_flg is uninitialized.
+NOTE: Variable report_flg is uninitialized.
+NOTE: Variable model_manager_flg is uninitialized.
+NOTE: Variable table_nm is uninitialized.
+NOTE: Variable content_txt is uninitialized.
+NOTE: Variable content_metadata_txt is uninitialized.
+NOTE: Variable last_modified_by_txt is uninitialized.
+NOTE: Variable sasFileRef is uninitialized.
+NOTE: Variable revision is uninitialized.
+NOTE: The data set WORK.DMC_CONTENT has 0 observations and 16 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.HOLDER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 0 observations read from the data set WORK.DMC_CONTENT.
+NOTE: The data set WORK.DMC_CONTENT has 0 observations and 16 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+
+NOTE: Deleting WORK.DMC_CONTENT (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+5                                                            SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      
+
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_Get_dmc_content.json
+
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 26 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_Get_dmc_content.json
+
+NOTE: Variable sasFileRef is uninitialized.
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 27 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: There were 1 observations read from the data set WORK.HOLDER.
+NOTE: The data set WORK.DMC_CONTENT has 1 observations and 16 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+6                                                            SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+
+NOTE: Deleting WORK.HOLDER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.DMC_CONTENT.
+NOTE: The data set WORK.DMC_CONTENT has 1 observations and 16 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Libref _DESTLIB refers to the same physical library as DMLIB.
+NOTE: Libref _DESTLIB was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/partition
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.02 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: The quoted string currently being processed has become more than 262 bytes long.  You might have unbalanced quotation marks.
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_Get_dmc_metadata.json
+
+NOTE: There were 596 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 596 observations and 51 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+7                                                            SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      
+
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_Get_dmc_metadata.json
+NOTE: The quoted string currently being processed has become more than 262 bytes long.  You might have unbalanced quotation marks.
+
+NOTE: There were 596 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 596 observations and 51 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+NOTE: The quoted string currently being processed has become more than 262 bytes long.  You might have unbalanced quotation marks.
+NOTE: The quoted string currently being processed has become more than 262 bytes long.  You might have unbalanced quotation marks.
+NOTE: The quoted string currently being processed has become more than 262 bytes long.  You might have unbalanced quotation marks.
+
+NOTE: There were 596 observations read from the data set WORK.HOLDER.
+NOTE: The data set _DESTLIB.METADATA has 596 observations and 43 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+
+NOTE: Deleting WORK.HOLDER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 596 observations read from the data set _DESTLIB.METADATA.
+NOTE: The data set _DESTLIB.METADATA has 596 observations and 45 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+NOTE: Libref _DESTLIB has been deassigned.
+
+NOTE: Deleting WORK.DMC_CONTENT (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP used (Total process time):
+8                                                            SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_GetSummary_dmc_summary.json
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 3 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_GetSummary_dmc_summary.json
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 3 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: There were 1 observations read from the data set WORK.HOLDER.
+NOTE: The data set WORK.DMC_SUMMARY has 1 observations and 1 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.HOLDER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+9                                                            SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.DMC_SUMMARY.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.DMC_SUMMARY (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Active Session now DMCASID.
+Type: PATH
+
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+NOTE: Active Session now DMCASID.
+
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 0 observations read from the data set DMLIB.METADATA.
+      WHERE ROLE='KEY';
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Active Session now DMCASID.
+SourceName: 
+
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set DMLIB.METADATA.
+10                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      WHERE ROLE='TARGET';
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Libref DMDSLIB was successfully assigned as follows: 
+      Engine:        CAS 
+      Physical Name: dfa60f1a-e6af-bb45-90db-abf5e92748e0
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.02 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_Get_dmc_guid_mapper.json
+
+NOTE: There were 1 observations read from the data set JSONLIB.ROOT.
+NOTE: The data set WORK.HOLDER has 1 observations and 14 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_Get_dmc_guid_mapper.json
+
+NOTE: There were 1 observations read from the data set JSONLIB.ROOT.
+NOTE: The data set WORK.HOLDER has 1 observations and 14 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+11                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: There were 1 observations read from the data set WORK.HOLDER.
+NOTE: The data set WORK.GUIDMAPPER has 1 observations and 6 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.HOLDER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.GUIDMAPPER.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.GUIDMAPPER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+tableName: 
+tableNLit: 'SECOM_BALANCED'n
+NOTE: No tables are available in caslib Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7 of Cloud Analytic Services.
+
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Active Session now DMCASID.
+
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 0 observations read from the data set DMLIB.METADATA.
+      WHERE uname='_DMINDEX_';
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+12                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      
+
+
+NOTE: There were 0 observations read from the data set DMLIB.METADATA.
+      WHERE ROLE='KEY';
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 0 observations read from the data set DMLIB.METADATA.
+      WHERE (ROLE='PARTITION') or (UNAME='_PARTIND_');
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: The file MACFILE is:
+      
+      檔案名稱=/opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-comput
+      e-server-36af68cc-129e-406c-83e5-5cb80764b727-5hcqx/macrosource.sas,
+      所有者名稱=未知,群組名稱=未知,
+      存取權限=-rw-r--r--,
+      上次修改=2025年11月20日 05時55分19秒,
+      檔案大小 (位元組)=0
+
+NOTE: 5 records were written to the file MACFILE.
+      The minimum record length was 7.
+      The maximum record length was 28.
+NOTE: There were 1 observations read from the data set DMLIB.METADATA.
+      WHERE ROLE in ('SEGMENT', 'TARGET') and (LEVEL not = 'INTERVAL');
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref MACFILE has been deassigned.
+
+NOTE: There were 0 observations read from the data set DMLIB.METADATA.
+      WHERE ROLE='FREQ';
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: The file MACFILE is:
+      
+      檔案名稱=/opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-comput
+      e-server-36af68cc-129e-406c-83e5-5cb80764b727-5hcqx/macrosource.sas,
+      所有者名稱=未知,群組名稱=未知,
+      存取權限=-rw-r--r--,
+      上次修改=2025年11月20日 05時55分19秒,
+      檔案大小 (位元組)=0
+
+NOTE: 5 records were written to the file MACFILE.
+13                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      The minimum record length was 7.
+      The maximum record length was 29.
+NOTE: There were 1 observations read from the data set DMLIB.METADATA.
+      WHERE (role='TARGET') and (level not = 'INTERVAL');
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+NOTE: Fileref MACFILE has been deassigned.
+
+NOTE: The data set DMLIB.PARTINFO has 23 observations and 2 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: The file MACFILE is:
+      
+      檔案名稱=/opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-comput
+      e-server-36af68cc-129e-406c-83e5-5cb80764b727-5hcqx/macrosource.sas,
+      所有者名稱=未知,群組名稱=未知,
+      存取權限=-rw-r--r--,
+      上次修改=2025年11月20日 05時55分19秒,
+      檔案大小 (位元組)=0
+
+NOTE: 5 records were written to the file MACFILE.
+      The minimum record length was 7.
+      The maximum record length was 25.
+NOTE: There were 1 observations read from the data set DMLIB.METADATA.
+      WHERE ROLE='TARGET';
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref MACFILE has been deassigned.
+
+NOTE: The file MACFILE is:
+      
+      檔案名稱=/opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-comput
+      e-server-36af68cc-129e-406c-83e5-5cb80764b727-5hcqx/macrosource.sas,
+      所有者名稱=未知,群組名稱=未知,
+      存取權限=-rw-r--r--,
+      上次修改=2025年11月20日 05時55分19秒,
+      檔案大小 (位元組)=0
+
+NOTE: 57 records were written to the file MACFILE.
+      The minimum record length was 24.
+      The maximum record length was 78.
+NOTE: There were 595 observations read from the data set DMLIB.METADATA.
+      WHERE (ROLE not in ('SEGMENT', 'TARGET') or (LEVEL='INTERVAL')) and (ROLE not = 'FREQ');
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+14                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+NOTE: Fileref MACFILE has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Active Session now DMCASID.
+NOTE: Added action set 'sampling'.
+NOTE: 分層取樣生效。
+NOTE: 對取樣使用 SEED=12345。
+
+NOTE: The PROCEDURE CAS printed page 1.
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.03 秒
+      cpu time            0.00 秒
+      
+
+
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Active Session now DMCASID.
+NOTE: Cloud Analytic Services promoted table DM_9HHFY18E9E7A4RIKB5CGCQEH3 in caslib 
+      Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7 to table DM_9HHFY18E9E7A4RIKB5CGCQEH3 in caslib 
+      Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7.
+NOTE: Cloud Analytic Services saved the file DM_9HHFY18E9E7A4RIKB5CGCQEH3.sashdat in caslib 
+      Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7.
+{caslib=Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7,name=DM_9HHFY18E9E7A4RIKB5CGCQEH3.sashdat}
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.01 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      46006:68   46006:97   
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+15                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+
+NOTE: partition - 執行時間: 0.151 秒。
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: The data set WORK._TMPPARTINFO has 25 observations and 2 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 25 observations read from the data set WORK._TMPPARTINFO.
+NOTE: The data set WORK._TMPPARTINFO has 25 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 23 observations read from the data set DMLIB.PARTINFO.
+NOTE: The data set DMLIB.PARTINFO has 23 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 25 observations read from the data set WORK._TMPPARTINFO.
+NOTE: There were 23 observations read from the data set DMLIB.PARTINFO.
+NOTE: The data set DMLIB.PARTINFO has 25 observations and 2 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+Project Partition Information:
+Property                     Value
+===========================================
+event                         
+inputCaslib                  CASUSER(sandy@simentor.com.tw)
+inputTable                   SECOM_BALANCED
+method                       STRATIFY
+nThreads                     1
+ndxVarName                   _dmIndex_
+oversample                   N
+16                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+partVarFormat                 
+partVarName                  _PartInd_
+partVarType                  N
+projectCaslib                Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7
+projectTable                 DM_9HHFY18E9E7A4RIKB5CGCQEH3
+sampPctEvt                    
+seed                         12345
+source                       VDMML
+sourceTableCaslib             
+sourceTableName               
+test                         10
+testVal                      2
+train                        60
+trainVal                     1
+userDefinedPartition         N
+valid                        30
+validVal                     0
+validationPartitionCnt       1
+NOTE: There were 25 observations read from the data set DMLIB.PARTINFO.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_GetSummary_dmc_summary.json
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 3 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+17                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_GetSummary_dmc_summary.json
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 3 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: There were 1 observations read from the data set WORK.HOLDER.
+NOTE: The data set WORK.DMC_SUMMARY has 1 observations and 1 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.HOLDER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.DMC_SUMMARY.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.DMC_SUMMARY (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+18                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_GetSummary_dmc_summary.json
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 3 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_GetSummary_dmc_summary.json
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 3 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: There were 1 observations read from the data set WORK.HOLDER.
+NOTE: The data set WORK.DMC_SUMMARY has 1 observations and 1 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.HOLDER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.DMC_SUMMARY.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+19                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      
+
+
+NOTE: Deleting WORK.DMC_SUMMARY (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: The data set WORK.DMCAS_REGISTER has 1 observations and 13 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.DMCAS_REGISTER.
+NOTE: The data set WORK.REG_CONTENT has 1 observations and 12 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.REG_CONTENT.
+NOTE: The data set WORK.DMC_REGISTER has 1 observations and 12 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: PROCEDURE JSON used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: 201 Created
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref REQBODY has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 25 observations read from the data set DMLIB.PARTINFO.
+NOTE: The data set DMLIB.PARTINFO_POST has 25 observations and 3 variables.
+NOTE: The data set DMLIB.PARTINFO_PUT has 0 observations and 3 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+20                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 25 observations read from the data set DMLIB.PARTINFO_POST.
+NOTE: The data set WORK.DMC_PARTINFO has 25 observations and 4 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+
+NOTE: PROCEDURE JSON used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: 201 Created
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref REQBODY has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+
+NOTE: Deleting DMLIB.PARTINFO_POST (memtype=DATA).
+NOTE: Deleting DMLIB.PARTINFO_PUT (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+
+NOTE: Deleting WORK.DMCAS_REGISTER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set DMLIB.METADATA.
+      WHERE ROLE in ('FREQ', 'TARGET');
+21                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_GetSummary_dmc_summary.json
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 3 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_GetSummary_dmc_summary.json
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 3 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: There were 1 observations read from the data set WORK.HOLDER.
+NOTE: The data set WORK.DMC_SUMMARY has 1 observations and 1 variables.
+NOTE: DATA 陳述式 used (Total process time):
+22                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.HOLDER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.DMC_SUMMARY.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.DMC_SUMMARY (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: The file _T is:
+      
+      檔案名稱=/opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-comput
+      e-server-36af68cc-129e-406c-83e5-5cb80764b727-5hcqx/partition/target.sas,
+      所有者名稱=未知,群組名稱=未知,
+      存取權限=-rw-r--r--,
+      上次修改=2025年11月20日 05時55分19秒
+
+NOTE: 5 records were written to the file _T.
+      The minimum record length was 1.
+      The maximum record length was 100.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Writing details.
+NOTE: status = 0.
+NOTE: The Cloud Analytic Services server processed the request in 0.003327 seconds.
+NOTE: The data set DMCASLIB.TARGETLEVEL has 2 observations and 9 variables.
+NOTE: PROCEDURE CARDINALITY used (Total process time):
+      real time           0.01 秒
+      cpu time            0.01 秒
+23                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      
+
+NOTE: Fileref _T has been deassigned.
+
+NOTE: There were 2 observations read from the data set DMCASLIB.TARGETLEVEL.
+      WHERE (_INDEX_ not = .) and (not MISSING(_CFMT_));
+NOTE: The data set WORK.TARGETLEVEL has 2 observations and 9 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.01 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TARGETLEVEL.
+NOTE: The data set WORK.TARGETLEVEL has 2 observations and 9 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TARGETLEVEL.
+NOTE: The data set WORK.TARGETLEVEL has 2 observations and 9 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+NOTE: The data set DMLIB.DMCAS_TARGETLEVEL has 3 observations and 5 variables.
+
+NOTE: There were 2 observations read from the data set WORK.TARGETLEVEL.
+NOTE: PROCEDURE MLUTIL used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 3 observations read from the data set DMLIB.DMCAS_TARGETLEVEL.
+NOTE: The data set DMLIB.DMCAS_TARGETLEVEL has 3 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TARGETLEVEL.
+NOTE: The data set WORK.TARGETLEVEL has 2 observations and 9 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+
+NOTE: There were 3 observations read from the data set DMLIB.DMCAS_TARGETLEVEL.
+NOTE: There were 2 observations read from the data set WORK.TARGETLEVEL.
+NOTE: The data set DMLIB.DMCAS_TARGETLEVEL has 3 observations and 12 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+24                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      cpu time            0.00 秒
+      
+
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_Get_dmc_content.json
+
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 2 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: Variable id is uninitialized.
+NOTE: Variable folder_nm is uninitialized.
+NOTE: Variable file_nm is uninitialized.
+NOTE: Variable ext_nm is uninitialized.
+NOTE: Variable type_cd is uninitialized.
+NOTE: Variable engine_nm is uninitialized.
+NOTE: Variable property_flg is uninitialized.
+NOTE: Variable report_flg is uninitialized.
+NOTE: Variable model_manager_flg is uninitialized.
+NOTE: Variable table_nm is uninitialized.
+NOTE: Variable content_txt is uninitialized.
+NOTE: Variable content_metadata_txt is uninitialized.
+NOTE: Variable last_modified_by_txt is uninitialized.
+NOTE: Variable sasFileRef is uninitialized.
+NOTE: Variable revision is uninitialized.
+NOTE: The data set WORK.DMC_CONTENT has 0 observations and 16 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+25                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+NOTE: Deleting WORK.HOLDER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 0 observations read from the data set WORK.DMC_CONTENT.
+NOTE: The data set WORK.DMC_CONTENT has 0 observations and 16 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.DMC_CONTENT (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Cloud Analytic Services dropped table TARGETLEVEL from caslib Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7.
+NOTE: Deleting DMCASLIB.TARGETLEVEL (memtype=DATA).
+NOTE: PROCEDURE DELETE used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.TARGETLEVEL (memtype=DATA).
+NOTE: PROCEDURE DELETE used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: 200 OK
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+26                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_GetSummary_dmc_summary.json
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 3 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: JSON data is only read once.  To read the JSON again, reassign the JSON LIBNAME.
+NOTE: Libref JSONLIB was successfully assigned as follows: 
+      Engine:        JSON 
+      Physical Name: 
+      /opt/sas/viya/config/var/tmp/compsrv/default/27b181c6-a3c8-4e88-bdbc-2599d8dd6a54/SAS_work83D60000017A_sas-compute-server-36af
+      68cc-129e-406c-83e5-5cb80764b727-5hcqx/respBody_GetSummary_dmc_summary.json
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 1 observations read from the data set JSONLIB.ITEMS.
+NOTE: The data set WORK.HOLDER has 1 observations and 3 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPBODY has been deassigned.
+NOTE: Libref JSONLIB has been deassigned.
+
+NOTE: There were 1 observations read from the data set WORK.HOLDER.
+NOTE: The data set WORK.DMC_SUMMARY has 1 observations and 1 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.HOLDER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.DMC_SUMMARY.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+27                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+
+NOTE: Deleting WORK.DMC_SUMMARY (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: The data set WORK.DMCAS_REGISTER has 1 observations and 13 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.DMCAS_REGISTER.
+NOTE: The data set WORK.REG_CONTENT has 1 observations and 12 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.REG_CONTENT.
+NOTE: The data set WORK.DMC_REGISTER has 1 observations and 12 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: PROCEDURE JSON used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: 201 Created
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref REQBODY has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+
+NOTE: Variable resourceId is uninitialized.
+NOTE: There were 3 observations read from the data set DMLIB.DMCAS_TARGETLEVEL.
+NOTE: The data set DMLIB.DMCAS_TARGETLEVEL_POST has 3 observations and 13 variables.
+NOTE: The data set DMLIB.DMCAS_TARGETLEVEL_PUT has 0 observations and 13 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+28                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 3 observations read from the data set DMLIB.DMCAS_TARGETLEVEL_POST.
+NOTE: The data set WORK.DMC_TARGET_LEVEL has 3 observations and 14 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+
+NOTE: PROCEDURE JSON used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: 201 Created
+NOTE: PROCEDURE HTTP used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Fileref RSPHEAD has been deassigned.
+NOTE: Fileref REQBODY has been deassigned.
+NOTE: Fileref RSPBODY has been deassigned.
+
+NOTE: Deleting DMLIB.DMCAS_TARGETLEVEL_POST (memtype=DATA).
+NOTE: Deleting DMLIB.DMCAS_TARGETLEVEL_PUT (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Deleting WORK.DMCAS_REGISTER (memtype=DATA).
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Libref DMCASLIB was successfully assigned as follows: 
+      Engine:        CAS 
+      Physical Name: dfa60f1a-e6af-bb45-90db-abf5e92748e0
+NOTE: Active Session now DMCASID.
+
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: The data set DMC_METADATA was promoted.
+29                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+NOTE: There were 596 observations read from the data set DMLIB.METADATA.
+NOTE: The data set DMCASLIB.DMC_METADATA has 596 observations and 45 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.01 秒
+      cpu time            0.01 秒
+      
+
+
+NOTE: Active Session now DMCASID.
+NOTE: Cloud Analytic Services saved the file DMC_METADATA.sashdat in caslib Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7.
+{caslib=Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7,name=DMC_METADATA.sashdat}
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.01 秒
+      cpu time            0.00 秒
+      
+
+NOTE: Active Session now DMCASID.
+
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 3 observations read from the data set DMLIB.DMCAS_TARGETLEVEL.
+NOTE: The data set DMCASLIB.DMC_TARGET_LEVEL has 3 observations and 12 variables.
+NOTE: The data set DMC_TARGET_LEVEL was promoted.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Active Session now DMCASID.
+NOTE: Cloud Analytic Services saved the file DMC_TARGET_LEVEL.sashdat in caslib 
+      Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7.
+{caslib=Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7,name=DMC_TARGET_LEVEL.sashdat}
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+NOTE: Active Session now DMCASID.
+
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: There were 25 observations read from the data set DMLIB.PARTINFO.
+NOTE: The data set DMCASLIB.DMC_PARTINFO has 26 observations and 2 variables.
+NOTE: The data set DMC_PARTINFO was promoted.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+30                                                           SAS 系統            2025年11月20日 星期四 上午05時55分00秒
+
+
+NOTE: Active Session now DMCASID.
+NOTE: Cloud Analytic Services saved the file DMC_PARTINFO.sashdat in caslib Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7.
+{caslib=Analytics_Project_a0397c41-3d58-4276-9f1d-5a6fb8b797c7,name=DMC_PARTINFO.sashdat}
+NOTE: PROCEDURE CAS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+
+NOTE: Libref DMLIB has been deassigned.
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      46011:68   46011:97   
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+
+
+NOTE: partition_srv - 執行時間: 0.797 秒。
+
+46012

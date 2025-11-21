@@ -7,6 +7,10 @@
 https://www.kaggle.com/code/christianmagnusingul/uci-secom-semiconductor-manufacturing-data-uci/notebook
 
 
+![Process flowchart](docs/flowcharts/Process%20Flowchart.png)
+
+
+
 
 UCI-SECOM\
 │  README.md
@@ -23,9 +27,9 @@ UCI-SECOM\
 │         secom_balanced.csv
 │
 ├─sas\
-│  ├─step1_cleaned.sas
-│  ├─step2_balanced.sas
-│  └─stpe3.upload.sas
+│    step1_cleaned.sas
+│    step2_balanced.sas
+│    stpe3.upload.sas
 │
 ├─notebooks\
 │      DownloadData.ipynb
@@ -36,25 +40,53 @@ UCI-SECOM\
 │
 ├─results\
 │  ├─figures\
+│  │      Boxplot_v59_Shift.png
+│  │      correlation matrix.png
+│  │      Label_feature.png
+│  │      v59plot.png
+│  │      v64plot.png
+│  │
 │  ├─tables\
+│  │      cumulative_lift_table.xlsx
+│  │      roc_summary.xlsx
+│  │      accuracy_table.xlsx
+│  │      f1_by_class_table.xlsx
+│  │      fit_statistics_table.xlsx
+│  │      percentage_bar_chart.xlsx
+│  │      variable_attributes_table.xlsx
+│  │      model_comparison_table.xlsx
+│  │
 │  ├─reports\
-│  │    ├─reports_SECOM_MODEL.pdf
-│  │    └─reports_SECOM_VA.pdf
+│  │      reports_SECOM_MODEL.pdf
+│  │      reports_SECOM_VA.pdf
 │  │
 │  └─logs\
-│
+│        SECOM_logs.log
+│        SAS_logs.log
+│        step1_cleaned_logs.log
+│        step2_balanced_logs.log
+│        stpe3.upload_logs.log
+│        stpe4.upload_sas7bdat_logs.log
+│ 
 ├─db\
-│  ├─import SQL.sql
-│  └─PostgreSQL.md
+│   import SQL.sql
+│   PostgreSQL.md
 │
 └─docs\
    ├─screenshot\
-   │     ├─SAS model studio.pdf
-   │     ├─SAS STUDIO.pdf
-   │     └─SAS visual Analytics.pdf
+   │     SAS model studio.pdf
+   │     SAS STUDIO.pdf
+   │     SAS visual Analytics.pdf
    │
    └─flowcharts\ 
-       └─Process Flowchart.png
+         Process Flowchart.png
+
+
+
+
+
+
+
 
 
 

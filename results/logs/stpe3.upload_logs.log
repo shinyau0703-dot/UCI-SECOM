@@ -1,0 +1,157 @@
+1     /* region: 已產生序文 */
+2     /* 請確認目前目錄可寫入 */
+3     data _null_;
+4         length rc 4;
+5         %let tworkloc="%sysfunc(getoption(work))";
+6         rc=dlgcdir(&tworkloc);
+7     run;
+NOTE: The current working directory is now 
+      "/opt/sas/viya/config/var/tmp/compsrv/default/7a476240-2993-42e6-9bab-7aa43d610bbc/SAS_work4AF900000174_sas-compute-server-ecc
+      4d1c8-ff27-4076-a29a-171695677b3c-p7dw2".
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+8     
+9     /* 設定選項 */
+10    title;
+11    footnote;
+12    options validvarname=any;
+13    options validmemname=extend;
+14    options dtreset date number;
+15    options device=png;
+16    
+17    /* 設定巨集變數 */
+18    %let syscc=0;
+19    %let _clientapp = %nrquote(%nrstr(SAS Studio));
+20    %let _clientappabbrev = %nrquote(%nrstr(Studio));
+21    %let _clientappversion=2024.09;
+22    %let _clientversion=;
+23    %let _sasservername=&SYSHOSTNAME;
+24    %let _sashostname=&SYSHOSTNAME;
+25    %let _sasprogramfilehost=&SYSHOSTNAME;
+26    %let _clientuserid = %nrquote(%nrstr(sandy@simentor.com.tw));
+27    %let _clientusername = %nrquote(%nrstr(sandy@simentor.com.tw));
+28    %let clientmachine = %nrquote(%nrstr());
+29    %let _clientmachine = %nrquote(%nrstr());
+30    %let _clientmode = %nrquote(%nrstr(viya));
+31    %let sasworklocation="%sysfunc(getoption(work))/";
+32    filename _cwd &sasworklocation;
+33    data _null_;
+34        call symput('_sasworkingdir',pathname('_cwd'));
+35    run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+36    filename _cwd;
+NOTE: Fileref _CWD has been deassigned.
+37    %let _sasprogramfile = %nrquote(%nrstr(sascontent:/files/files/9f57691c-5a5b-4790-b6ef-44560f48ce12));
+38    %let _baseurl = %nrquote(%nrstr(https://azureuse011286.my-trials.sas.com/SASStudio/));
+39    %let _execenv = %nrquote(%nrstr(SASStudio));
+40    %symdel _dataout_mime_type _dataout_name _dataout_url _dataout_table / nowarn;
+41    %let _sasws_ = %bquote(%sysfunc(getoption(work)));
+42    %let _saswstemp_ = %bquote(%sysfunc(getoption(work)));
+43    
+44    /* 偵測到 SAS/Graph 和設定圖型選項 */
+45    data _null_;
+46        length rc $255;
+47        call symput("graphinit","");
+48        call symput("graphterm","");
+49        rc=tslvl('sasxgopt','n');
+50        _error_=0;
+51        if (rc^=' ') then do;
+52            call symput("graphinit","goptions reset=all gsfname=_gsfname;");
+53            call symput("graphterm","goptions noaccessible;");
+54        end;
+55    run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+56    data _null_;
+57        length rc 4;
+58        rc=sysprod("PRODNUM002");
+59        if (rc^=1) then do;
+60            call symput("graphinit","");
+61            call symput("graphterm","");
+62        end;
+63    run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+64    
+65    /* 設定 ODS 目的地 */
+66    ods _all_ close;
+67    %studio_results_directory;
+68    filename _htmlout "&_results_prefix_..html";
+69    filename _listout "&_results_prefix_..lst";
+70    filename _gsfname temp;
+71    filename _dataout "&_results_prefix_..dat";
+72    ods autonavigate off;
+73    ods graphics on;
+74    ods html5 (id=web) METATEXT='http-equiv="Content-Security-Policy" content="default-src ''none''; style-src ''unsafe-inline'';
+74  ! img-src data: ;"' device=png gpath="&_saswstemp_" path="&_saswstemp_" encoding=utf8 file=_htmlout (title='結果:
+74  ! stpe3.upload.sas') style=Illuminate options(bitmap_mode='inline' outline='on' svg_mode='inline'
+74  ! css_prefix=".ods_&SYS_COMPUTE_JOB_ID" body_id="div_&SYS_COMPUTE_JOB_ID" );
+NOTE: Writing HTML5(WEB) Body file: _HTMLOUT
+75    ods listing file=_listout;
+76    &graphinit;
+77    %studio_initialize_custom_output;
+78    /* endregion */
+79    
+80    /* WORK.SECOM_CLEANED 上傳到 CASUSER(Data Manager看得到) */
+81    cas mysess;
+NOTE: The session MYSESS connected successfully to Cloud Analytic Services sas-cas-server-default-client using port 5570. The UUID 
+      is 3be9feb5-59fe-1148-8f97-ba89bdbcf078. The user is sandy@simentor.com.tw and the active caslib is 
+      CASUSER(sandy@simentor.com.tw).
+NOTE: The SAS option SESSREF was updated with the value MYSESS.
+NOTE: The SAS macro _SESSREF_ was updated with the value MYSESS.
+NOTE: The session is using 0 workers.
+82    
+83    proc casutil sessref=mysess;
+NOTE: The UUID '3be9feb5-59fe-1148-8f97-ba89bdbcf078' is connected using session MYSESS.
+84     droptable casdata="SECOM_CLEANED" incaslib="CASUSER" quiet;
+NOTE: The Cloud Analytic Services server processed the request in 0.001715 seconds.
+85     load data=WORK.SECOM_CLEANED
+86          outcaslib="CASUSER"
+87          casout="SECOM_CLEANED"
+88          promote;
+NOTE: WORK.SECOM_CLEANED 已成功增加至 "CASUSER(sandy@simentor.com.tw)" caslib 作為 "SECOM_CLEANED"。
+89    quit;
+NOTE: PROCEDURE CASUTIL used (Total process time):
+      real time           0.04 秒
+      cpu time            0.02 秒
+      
+90    
+91    /* WORK.SECOM_BALANCED 上傳到 CASUSER(Data Manager看得到) */
+92    proc casutil sessref=mysess;
+NOTE: The UUID '3be9feb5-59fe-1148-8f97-ba89bdbcf078' is connected using session MYSESS.
+93     droptable casdata="SECOM_BALANCED" incaslib="CASUSER" quiet;
+NOTE: The Cloud Analytic Services server processed the request in 0.000654 seconds.
+94     load data=WORK.SECOM_BALANCED
+95          outcaslib="CASUSER"
+96          casout="SECOM_BALANCED"
+97          promote;
+NOTE: WORK.SECOM_BALANCED 已成功增加至 "CASUSER(sandy@simentor.com.tw)" caslib 作為 "SECOM_BALANCED"。
+98    quit;
+NOTE: PROCEDURE CASUTIL used (Total process time):
+      real time           0.02 秒
+      cpu time            0.01 秒
+      
+99    
+100   
+101   /* region: 已產生後序 */
+102   /* 關閉 ODS 目的地 */
+103   &graphterm; ;*';*";*/;run;quit;
+104   quit;run;
+105   ods html5 (id=web) close;
+106   ods listing close;
+107   %if %sysfunc(fileref(_gsfname)) lt 0 %then %do;
+108       filename _gsfname clear;
+NOTE: Fileref _GSFNAME has been deassigned.
+109   %end;
+110   %studio_capture_custom_output;
+111   /* endregion */
+112   

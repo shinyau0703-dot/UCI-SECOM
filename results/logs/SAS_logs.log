@@ -1,0 +1,1975 @@
+1    /* region: 已產生序文 */
+2    /* 請確認目前目錄可寫入 */
+3    data _null_;
+4        length rc 4;
+5        %let tworkloc="%sysfunc(getoption(work))";
+6        rc=dlgcdir(&tworkloc);
+7    run;
+NOTE: The current working directory is now 
+      "/opt/sas/viya/config/var/tmp/compsrv/default/7a476240-2993-42e6-9bab-7aa43d610bbc/SAS_work4AF900000174_sas-compute-server-ecc
+      4d1c8-ff27-4076-a29a-171695677b3c-p7dw2".
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+8    
+9    /* 設定選項 */
+10   title;
+11   footnote;
+12   options validvarname=any;
+13   options validmemname=extend;
+14   options dtreset date number;
+15   options device=png;
+16   
+17   /* 設定巨集變數 */
+18   %let syscc=0;
+19   %let _clientapp = %nrquote(%nrstr(SAS Studio));
+20   %let _clientappabbrev = %nrquote(%nrstr(Studio));
+21   %let _clientappversion=2024.09;
+22   %let _clientversion=;
+23   %let _sasservername=&SYSHOSTNAME;
+24   %let _sashostname=&SYSHOSTNAME;
+25   %let _sasprogramfilehost=&SYSHOSTNAME;
+26   %let _clientuserid = %nrquote(%nrstr(sandy@simentor.com.tw));
+27   %let _clientusername = %nrquote(%nrstr(sandy@simentor.com.tw));
+28   %let clientmachine = %nrquote(%nrstr());
+29   %let _clientmachine = %nrquote(%nrstr());
+30   %let _clientmode = %nrquote(%nrstr(viya));
+31   %let sasworklocation="%sysfunc(getoption(work))/";
+32   filename _cwd &sasworklocation;
+33   data _null_;
+34       call symput('_sasworkingdir',pathname('_cwd'));
+35   run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+36   filename _cwd;
+NOTE: Fileref _CWD has been deassigned.
+37   %let _sasprogramfile = %nrquote(%nrstr());
+38   %let _baseurl = %nrquote(%nrstr(https://azureuse011286.my-trials.sas.com/SASStudio/));
+39   %let _execenv = %nrquote(%nrstr(SASStudio));
+40   %symdel _dataout_mime_type _dataout_name _dataout_url _dataout_table / nowarn;
+41   %let _sasws_ = %bquote(%sysfunc(getoption(work)));
+42   %let _saswstemp_ = %bquote(%sysfunc(getoption(work)));
+43   
+44   /* 偵測到 SAS/Graph 和設定圖型選項 */
+45   data _null_;
+46       length rc $255;
+47       call symput("graphinit","");
+48       call symput("graphterm","");
+49       rc=tslvl('sasxgopt','n');
+50       _error_=0;
+51       if (rc^=' ') then do;
+52           call symput("graphinit","goptions reset=all gsfname=_gsfname;");
+53           call symput("graphterm","goptions noaccessible;");
+54       end;
+55   run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+56   data _null_;
+57       length rc 4;
+58       rc=sysprod("PRODNUM002");
+59       if (rc^=1) then do;
+60           call symput("graphinit","");
+61           call symput("graphterm","");
+62       end;
+63   run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+64   
+65   /* 設定 ODS 目的地 */
+66   ods _all_ close;
+67   %studio_results_directory;
+68   filename _htmlout "&_results_prefix_..html";
+69   filename _listout "&_results_prefix_..lst";
+70   filename _gsfname temp;
+71   filename _dataout "&_results_prefix_..dat";
+72   ods autonavigate off;
+73   ods graphics on;
+74   ods html5 (id=web) METATEXT='http-equiv="Content-Security-Policy" content="default-src ''none''; style-src ''unsafe-inline'';
+74 ! img-src data: ;"' device=png gpath="&_saswstemp_" path="&_saswstemp_" encoding=utf8 file=_htmlout (title='結果: secom.ctl')
+74 ! style=Illuminate options(bitmap_mode='inline' outline='on' svg_mode='inline' css_prefix=".ods_&SYS_COMPUTE_JOB_ID"
+74 ! body_id="div_&SYS_COMPUTE_JOB_ID" );
+NOTE: Writing HTML5(WEB) Body file: _HTMLOUT
+75   ods listing file=_listout;
+76   &graphinit;
+77   %studio_initialize_custom_output;
+78   /* endregion */
+79   
+80   /* 產生的程式碼 (匯入) */
+81   /* 來源檔案: secom.csv */
+82   /* 來源路徑: /Users/sandy@simentor.com.tw/secom.csv */
+83   /* 程式碼產生於: 2025年11月21日 星期五 上午1:42:59 */
+84   
+85   proc sql;
+86   %if %sysfunc(exist(WORK.SECOM)) %then %do;
+87       drop table WORK.SECOM;
+88   %end;
+89   %if %sysfunc(exist(WORK.SECOM,VIEW)) %then %do;
+90       drop view WORK.SECOM;
+91   %end;
+92   quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+93   
+94   
+95   
+96   FILENAME REFFILE FILESRVC FOLDERPATH='/Users/sandy@simentor.com.tw'  FILENAME='secom.csv';
+97   
+98   PROC IMPORT DATAFILE=REFFILE
+99   DBMS=CSV
+100  OUT=WORK.SECOM;
+101  GETNAMES=YES;
+102  RUN;
+NOTE: Unable to open parameter catalog: SASUSER.PARMS.PARMS.SLIST in update mode. Temporary parameter values will be saved to 
+WORK.PARMS.PARMS.SLIST.
+103   /**********************************************************************
+104   *   PRODUCT:   SAS
+105   *   VERSION:   V.04.00
+106   *   CREATOR:   External File Interface
+107   *   DATE:      21NOV25
+108   *   DESC:      Generated SAS Datastep Code
+109   *   TEMPLATE SOURCE:  (None Specified.)
+110   ***********************************************************************/
+111      data WORK.SECOM    ;
+112      %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+113      infile REFFILE delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+114         informat "0"N best32. ;
+115         informat "1"N best32. ;
+116         informat "2"N best32. ;
+117         informat "3"N best32. ;
+118         informat "4"N best32. ;
+119         informat "5"N best32. ;
+120         informat "6"N best32. ;
+121         informat "7"N best32. ;
+122         informat "8"N best32. ;
+123         informat "9"N best32. ;
+124         informat "10"N best32. ;
+125         informat "11"N best32. ;
+126         informat "12"N best32. ;
+127         informat "13"N best32. ;
+128         informat "14"N best32. ;
+129         informat "15"N best32. ;
+130         informat "16"N best32. ;
+131         informat "17"N best32. ;
+132         informat "18"N best32. ;
+133         informat "19"N best32. ;
+134         informat "20"N best32. ;
+135         informat "21"N best32. ;
+136         informat "22"N best32. ;
+137         informat "23"N best32. ;
+138         informat "24"N best32. ;
+139         informat "25"N best32. ;
+140         informat "26"N best32. ;
+141         informat "27"N best32. ;
+142         informat "28"N best32. ;
+143         informat "29"N best32. ;
+144         informat "30"N best32. ;
+145         informat "31"N best32. ;
+146         informat "32"N best32. ;
+147         informat "33"N best32. ;
+148         informat "34"N best32. ;
+149         informat "35"N best32. ;
+150         informat "36"N best32. ;
+151         informat "37"N best32. ;
+152         informat "38"N best32. ;
+153         informat "39"N best32. ;
+154         informat "40"N best32. ;
+155         informat "41"N best32. ;
+156         informat "42"N best32. ;
+157         informat "43"N best32. ;
+158         informat "44"N best32. ;
+159         informat "45"N best32. ;
+160         informat "46"N best32. ;
+161         informat "47"N best32. ;
+162         informat "48"N best32. ;
+163         informat "49"N best32. ;
+164         informat "50"N best32. ;
+165         informat "51"N best32. ;
+166         informat "52"N best32. ;
+167         informat "53"N best32. ;
+168         informat "54"N best32. ;
+169         informat "55"N best32. ;
+170         informat "56"N best32. ;
+171         informat "57"N best32. ;
+172         informat "58"N best32. ;
+173         informat "59"N best32. ;
+174         informat "60"N best32. ;
+175         informat "61"N best32. ;
+176         informat "62"N best32. ;
+177         informat "63"N best32. ;
+178         informat "64"N best32. ;
+179         informat "65"N best32. ;
+180         informat "66"N best32. ;
+181         informat "67"N best32. ;
+182         informat "68"N best32. ;
+183         informat "69"N best32. ;
+184         informat "70"N best32. ;
+185         informat "71"N best32. ;
+186         informat "72"N best32. ;
+187         informat "73"N best32. ;
+188         informat "74"N best32. ;
+189         informat "75"N best32. ;
+190         informat "76"N best32. ;
+191         informat "77"N best32. ;
+192         informat "78"N best32. ;
+193         informat "79"N best32. ;
+194         informat "80"N best32. ;
+195         informat "81"N best32. ;
+196         informat "82"N best32. ;
+197         informat "83"N best32. ;
+198         informat "84"N best32. ;
+199         informat "85"N $1. ;
+200         informat "86"N best32. ;
+201         informat "87"N best32. ;
+202         informat "88"N best32. ;
+203         informat "89"N best32. ;
+204         informat "90"N best32. ;
+205         informat "91"N best32. ;
+206         informat "92"N best32. ;
+207         informat "93"N best32. ;
+208         informat "94"N best32. ;
+209         informat "95"N best32. ;
+210         informat "96"N best32. ;
+211         informat "97"N best32. ;
+212         informat "98"N best32. ;
+213         informat "99"N best32. ;
+214         informat "100"N best32. ;
+215         informat "101"N best32. ;
+216         informat "102"N best32. ;
+217         informat "103"N best32. ;
+218         informat "104"N best32. ;
+219         informat "105"N best32. ;
+220         informat "106"N best32. ;
+221         informat "107"N best32. ;
+222         informat "108"N best32. ;
+223         informat "109"N $1. ;
+224         informat "110"N $1. ;
+225         informat "111"N $1. ;
+226         informat "112"N best32. ;
+227         informat "113"N best32. ;
+228         informat "114"N best32. ;
+229         informat "115"N best32. ;
+230         informat "116"N best32. ;
+231         informat "117"N best32. ;
+232         informat "118"N best32. ;
+233         informat "119"N best32. ;
+234         informat "120"N best32. ;
+235         informat "121"N best32. ;
+236         informat "122"N best32. ;
+237         informat "123"N best32. ;
+238         informat "124"N best32. ;
+239         informat "125"N best32. ;
+240         informat "126"N best32. ;
+241         informat "127"N best32. ;
+242         informat "128"N best32. ;
+243         informat "129"N best32. ;
+244         informat "130"N best32. ;
+245         informat "131"N best32. ;
+246         informat "132"N best32. ;
+247         informat "133"N best32. ;
+248         informat "134"N best32. ;
+249         informat "135"N best32. ;
+250         informat "136"N best32. ;
+251         informat "137"N best32. ;
+252         informat "138"N best32. ;
+253         informat "139"N best32. ;
+254         informat "140"N best32. ;
+255         informat "141"N best32. ;
+256         informat "142"N best32. ;
+257         informat "143"N best32. ;
+258         informat "144"N best32. ;
+259         informat "145"N best32. ;
+260         informat "146"N best32. ;
+261         informat "147"N best32. ;
+262         informat "148"N best32. ;
+263         informat "149"N best32. ;
+264         informat "150"N best32. ;
+265         informat "151"N best32. ;
+266         informat "152"N best32. ;
+267         informat "153"N best32. ;
+268         informat "154"N best32. ;
+269         informat "155"N best32. ;
+270         informat "156"N best32. ;
+271         informat "157"N $1. ;
+272         informat "158"N $1. ;
+273         informat "159"N best32. ;
+274         informat "160"N best32. ;
+275         informat "161"N best32. ;
+276         informat "162"N best32. ;
+277         informat "163"N best32. ;
+278         informat "164"N best32. ;
+279         informat "165"N best32. ;
+280         informat "166"N best32. ;
+281         informat "167"N best32. ;
+282         informat "168"N best32. ;
+283         informat "169"N best32. ;
+284         informat "170"N best32. ;
+285         informat "171"N best32. ;
+286         informat "172"N best32. ;
+287         informat "173"N best32. ;
+288         informat "174"N best32. ;
+289         informat "175"N best32. ;
+290         informat "176"N best32. ;
+291         informat "177"N best32. ;
+292         informat "178"N best32. ;
+293         informat "179"N best32. ;
+294         informat "180"N best32. ;
+295         informat "181"N best32. ;
+296         informat "182"N best32. ;
+297         informat "183"N best32. ;
+298         informat "184"N best32. ;
+299         informat "185"N best32. ;
+300         informat "186"N best32. ;
+301         informat "187"N best32. ;
+302         informat "188"N best32. ;
+303         informat "189"N best32. ;
+304         informat "190"N best32. ;
+305         informat "191"N best32. ;
+306         informat "192"N best32. ;
+307         informat "193"N best32. ;
+308         informat "194"N best32. ;
+309         informat "195"N best32. ;
+310         informat "196"N best32. ;
+311         informat "197"N best32. ;
+312         informat "198"N best32. ;
+313         informat "199"N best32. ;
+314         informat "200"N best32. ;
+315         informat "201"N best32. ;
+316         informat "202"N best32. ;
+317         informat "203"N best32. ;
+318         informat "204"N best32. ;
+319         informat "205"N best32. ;
+320         informat "206"N best32. ;
+321         informat "207"N best32. ;
+322         informat "208"N best32. ;
+323         informat "209"N best32. ;
+324         informat "210"N best32. ;
+325         informat "211"N best32. ;
+326         informat "212"N best32. ;
+327         informat "213"N best32. ;
+328         informat "214"N best32. ;
+329         informat "215"N best32. ;
+330         informat "216"N best32. ;
+331         informat "217"N best32. ;
+332         informat "218"N best32. ;
+333         informat "219"N best32. ;
+334         informat "220"N $1. ;
+335         informat "221"N best32. ;
+336         informat "222"N best32. ;
+337         informat "223"N best32. ;
+338         informat "224"N best32. ;
+339         informat "225"N best32. ;
+340         informat "226"N best32. ;
+341         informat "227"N best32. ;
+342         informat "228"N best32. ;
+343         informat "229"N best32. ;
+344         informat "230"N best32. ;
+345         informat "231"N best32. ;
+346         informat "232"N best32. ;
+347         informat "233"N best32. ;
+348         informat "234"N best32. ;
+349         informat "235"N best32. ;
+350         informat "236"N best32. ;
+351         informat "237"N best32. ;
+352         informat "238"N best32. ;
+353         informat "239"N best32. ;
+354         informat "240"N best32. ;
+355         informat "241"N best32. ;
+356         informat "242"N best32. ;
+357         informat "243"N best32. ;
+358         informat "244"N $1. ;
+359         informat "245"N $1. ;
+360         informat "246"N $1. ;
+361         informat "247"N best32. ;
+362         informat "248"N best32. ;
+363         informat "249"N best32. ;
+364         informat "250"N best32. ;
+365         informat "251"N best32. ;
+366         informat "252"N best32. ;
+367         informat "253"N best32. ;
+368         informat "254"N best32. ;
+369         informat "255"N best32. ;
+370         informat "256"N best32. ;
+371         informat "257"N best32. ;
+372         informat "258"N best32. ;
+373         informat "259"N best32. ;
+374         informat "260"N best32. ;
+375         informat "261"N best32. ;
+376         informat "262"N best32. ;
+377         informat "263"N best32. ;
+378         informat "264"N best32. ;
+379         informat "265"N best32. ;
+380         informat "266"N best32. ;
+381         informat "267"N best32. ;
+382         informat "268"N best32. ;
+383         informat "269"N best32. ;
+384         informat "270"N best32. ;
+385         informat "271"N best32. ;
+386         informat "272"N best32. ;
+387         informat "273"N best32. ;
+388         informat "274"N best32. ;
+389         informat "275"N best32. ;
+390         informat "276"N best32. ;
+391         informat "277"N best32. ;
+392         informat "278"N best32. ;
+393         informat "279"N best32. ;
+394         informat "280"N best32. ;
+395         informat "281"N best32. ;
+396         informat "282"N best32. ;
+397         informat "283"N best32. ;
+398         informat "284"N best32. ;
+399         informat "285"N best32. ;
+400         informat "286"N best32. ;
+401         informat "287"N best32. ;
+402         informat "288"N best32. ;
+403         informat "289"N best32. ;
+404         informat "290"N best32. ;
+405         informat "291"N best32. ;
+406         informat "292"N $1. ;
+407         informat "293"N $1. ;
+408         informat "294"N best32. ;
+409         informat "295"N best32. ;
+410         informat "296"N best32. ;
+411         informat "297"N best32. ;
+412         informat "298"N best32. ;
+413         informat "299"N best32. ;
+414         informat "300"N best32. ;
+415         informat "301"N best32. ;
+416         informat "302"N best32. ;
+417         informat "303"N best32. ;
+418         informat "304"N best32. ;
+419         informat "305"N best32. ;
+420         informat "306"N best32. ;
+421         informat "307"N best32. ;
+422         informat "308"N best32. ;
+423         informat "309"N best32. ;
+424         informat "310"N best32. ;
+425         informat "311"N best32. ;
+426         informat "312"N best32. ;
+427         informat "313"N best32. ;
+428         informat "314"N best32. ;
+429         informat "315"N best32. ;
+430         informat "316"N best32. ;
+431         informat "317"N best32. ;
+432         informat "318"N best32. ;
+433         informat "319"N best32. ;
+434         informat "320"N best32. ;
+435         informat "321"N best32. ;
+436         informat "322"N best32. ;
+437         informat "323"N best32. ;
+438         informat "324"N best32. ;
+439         informat "325"N best32. ;
+440         informat "326"N best32. ;
+441         informat "327"N best32. ;
+442         informat "328"N best32. ;
+443         informat "329"N best32. ;
+444         informat "330"N best32. ;
+445         informat "331"N best32. ;
+446         informat "332"N best32. ;
+447         informat "333"N best32. ;
+448         informat "334"N best32. ;
+449         informat "335"N best32. ;
+450         informat "336"N best32. ;
+451         informat "337"N best32. ;
+452         informat "338"N best32. ;
+453         informat "339"N best32. ;
+454         informat "340"N best32. ;
+455         informat "341"N best32. ;
+456         informat "342"N best32. ;
+457         informat "343"N best32. ;
+458         informat "344"N best32. ;
+459         informat "345"N best32. ;
+460         informat "346"N best32. ;
+461         informat "347"N best32. ;
+462         informat "348"N best32. ;
+463         informat "349"N best32. ;
+464         informat "350"N best32. ;
+465         informat "351"N best32. ;
+466         informat "352"N best32. ;
+467         informat "353"N best32. ;
+468         informat "354"N best32. ;
+469         informat "355"N best32. ;
+470         informat "356"N best32. ;
+471         informat "357"N best32. ;
+472         informat "358"N $1. ;
+473         informat "359"N best32. ;
+474         informat "360"N best32. ;
+475         informat "361"N best32. ;
+476         informat "362"N best32. ;
+477         informat "363"N best32. ;
+478         informat "364"N best32. ;
+479         informat "365"N best32. ;
+480         informat "366"N best32. ;
+481         informat "367"N best32. ;
+482         informat "368"N best32. ;
+483         informat "369"N best32. ;
+484         informat "370"N best32. ;
+485         informat "371"N best32. ;
+486         informat "372"N best32. ;
+487         informat "373"N best32. ;
+488         informat "374"N best32. ;
+489         informat "375"N best32. ;
+490         informat "376"N best32. ;
+491         informat "377"N best32. ;
+492         informat "378"N best32. ;
+493         informat "379"N best32. ;
+494         informat "380"N best32. ;
+495         informat "381"N best32. ;
+496         informat "382"N $1. ;
+497         informat "383"N $1. ;
+498         informat "384"N $1. ;
+499         informat "385"N best32. ;
+500         informat "386"N best32. ;
+501         informat "387"N best32. ;
+502         informat "388"N best32. ;
+503         informat "389"N best32. ;
+504         informat "390"N best32. ;
+505         informat "391"N best32. ;
+506         informat "392"N best32. ;
+507         informat "393"N best32. ;
+508         informat "394"N best32. ;
+509         informat "395"N best32. ;
+510         informat "396"N best32. ;
+511         informat "397"N best32. ;
+512         informat "398"N best32. ;
+513         informat "399"N best32. ;
+514         informat "400"N best32. ;
+515         informat "401"N best32. ;
+516         informat "402"N best32. ;
+517         informat "403"N best32. ;
+518         informat "404"N best32. ;
+519         informat "405"N best32. ;
+520         informat "406"N best32. ;
+521         informat "407"N best32. ;
+522         informat "408"N best32. ;
+523         informat "409"N best32. ;
+524         informat "410"N best32. ;
+525         informat "411"N best32. ;
+526         informat "412"N best32. ;
+527         informat "413"N best32. ;
+528         informat "414"N best32. ;
+529         informat "415"N best32. ;
+530         informat "416"N best32. ;
+531         informat "417"N best32. ;
+532         informat "418"N best32. ;
+533         informat "419"N best32. ;
+534         informat "420"N best32. ;
+535         informat "421"N best32. ;
+536         informat "422"N best32. ;
+537         informat "423"N best32. ;
+538         informat "424"N best32. ;
+539         informat "425"N best32. ;
+540         informat "426"N best32. ;
+541         informat "427"N best32. ;
+542         informat "428"N best32. ;
+543         informat "429"N best32. ;
+544         informat "430"N best32. ;
+545         informat "431"N best32. ;
+546         informat "432"N best32. ;
+547         informat "433"N best32. ;
+548         informat "434"N best32. ;
+549         informat "435"N best32. ;
+550         informat "436"N best32. ;
+551         informat "437"N best32. ;
+552         informat "438"N best32. ;
+553         informat "439"N best32. ;
+554         informat "440"N best32. ;
+555         informat "441"N best32. ;
+556         informat "442"N best32. ;
+557         informat "443"N best32. ;
+558         informat "444"N best32. ;
+559         informat "445"N best32. ;
+560         informat "446"N best32. ;
+561         informat "447"N best32. ;
+562         informat "448"N best32. ;
+563         informat "449"N best32. ;
+564         informat "450"N best32. ;
+565         informat "451"N best32. ;
+566         informat "452"N best32. ;
+567         informat "453"N best32. ;
+568         informat "454"N best32. ;
+569         informat "455"N best32. ;
+570         informat "456"N best32. ;
+571         informat "457"N best32. ;
+572         informat "458"N best32. ;
+573         informat "459"N best32. ;
+574         informat "460"N best32. ;
+575         informat "461"N best32. ;
+576         informat "462"N best32. ;
+577         informat "463"N best32. ;
+578         informat "464"N best32. ;
+579         informat "465"N best32. ;
+580         informat "466"N best32. ;
+581         informat "467"N best32. ;
+582         informat "468"N best32. ;
+583         informat "469"N best32. ;
+584         informat "470"N best32. ;
+585         informat "471"N best32. ;
+586         informat "472"N best32. ;
+587         informat "473"N best32. ;
+588         informat "474"N best32. ;
+589         informat "475"N best32. ;
+590         informat "476"N best32. ;
+591         informat "477"N best32. ;
+592         informat "478"N best32. ;
+593         informat "479"N best32. ;
+594         informat "480"N best32. ;
+595         informat "481"N best32. ;
+596         informat "482"N best32. ;
+597         informat "483"N best32. ;
+598         informat "484"N best32. ;
+599         informat "485"N best32. ;
+600         informat "486"N best32. ;
+601         informat "487"N best32. ;
+602         informat "488"N best32. ;
+603         informat "489"N best32. ;
+604         informat "490"N best32. ;
+605         informat "491"N best32. ;
+606         informat "492"N $1. ;
+607         informat "493"N best32. ;
+608         informat "494"N best32. ;
+609         informat "495"N best32. ;
+610         informat "496"N best32. ;
+611         informat "497"N best32. ;
+612         informat "498"N best32. ;
+613         informat "499"N best32. ;
+614         informat "500"N best32. ;
+615         informat "501"N best32. ;
+616         informat "502"N best32. ;
+617         informat "503"N best32. ;
+618         informat "504"N best32. ;
+619         informat "505"N best32. ;
+620         informat "506"N best32. ;
+621         informat "507"N best32. ;
+622         informat "508"N best32. ;
+623         informat "509"N best32. ;
+624         informat "510"N best32. ;
+625         informat "511"N best32. ;
+626         informat "512"N best32. ;
+627         informat "513"N best32. ;
+628         informat "514"N best32. ;
+629         informat "515"N best32. ;
+630         informat "516"N $1. ;
+631         informat "517"N $1. ;
+632         informat "518"N $1. ;
+633         informat "519"N best32. ;
+634         informat "520"N best32. ;
+635         informat "521"N best32. ;
+636         informat "522"N best32. ;
+637         informat "523"N best32. ;
+638         informat "524"N best32. ;
+639         informat "525"N best32. ;
+640         informat "526"N best32. ;
+641         informat "527"N best32. ;
+642         informat "528"N best32. ;
+643         informat "529"N best32. ;
+644         informat "530"N best32. ;
+645         informat "531"N best32. ;
+646         informat "532"N best32. ;
+647         informat "533"N best32. ;
+648         informat "534"N best32. ;
+649         informat "535"N best32. ;
+650         informat "536"N best32. ;
+651         informat "537"N best32. ;
+652         informat "538"N best32. ;
+653         informat "539"N best32. ;
+654         informat "540"N best32. ;
+655         informat "541"N best32. ;
+656         informat "542"N best32. ;
+657         informat "543"N best32. ;
+658         informat "544"N best32. ;
+659         informat "545"N best32. ;
+660         informat "546"N best32. ;
+661         informat "547"N best32. ;
+662         informat "548"N best32. ;
+663         informat "549"N best32. ;
+664         informat "550"N best32. ;
+665         informat "551"N best32. ;
+666         informat "552"N best32. ;
+667         informat "553"N best32. ;
+668         informat "554"N best32. ;
+669         informat "555"N best32. ;
+670         informat "556"N best32. ;
+671         informat "557"N best32. ;
+672         informat "558"N best32. ;
+673         informat "559"N best32. ;
+674         informat "560"N best32. ;
+675         informat "561"N best32. ;
+676         informat "562"N best32. ;
+677         informat "563"N best32. ;
+678         informat "564"N best32. ;
+679         informat "565"N best32. ;
+680         informat "566"N best32. ;
+681         informat "567"N best32. ;
+682         informat "568"N best32. ;
+683         informat "569"N best32. ;
+684         informat "570"N best32. ;
+685         informat "571"N best32. ;
+686         informat "572"N best32. ;
+687         informat "573"N best32. ;
+688         informat "574"N best32. ;
+689         informat "575"N best32. ;
+690         informat "576"N best32. ;
+691         informat "577"N best32. ;
+692         informat "578"N best32. ;
+693         informat "579"N best32. ;
+694         informat "580"N best32. ;
+695         informat "581"N best32. ;
+696         informat "582"N best32. ;
+697         informat "583"N best32. ;
+698         informat "584"N best32. ;
+699         informat "585"N best32. ;
+700         informat "586"N best32. ;
+701         informat "587"N best32. ;
+702         informat "588"N best32. ;
+703         informat "589"N best32. ;
+704         informat "Pass/Fail"N best32. ;
+705         informat Time anydtdtm40. ;
+706         format "0"N best12. ;
+707         format "1"N best12. ;
+708         format "2"N best12. ;
+709         format "3"N best12. ;
+710         format "4"N best12. ;
+711         format "5"N best12. ;
+712         format "6"N best12. ;
+713         format "7"N best12. ;
+714         format "8"N best12. ;
+715         format "9"N best12. ;
+716         format "10"N best12. ;
+717         format "11"N best12. ;
+718         format "12"N best12. ;
+719         format "13"N best12. ;
+720         format "14"N best12. ;
+721         format "15"N best12. ;
+722         format "16"N best12. ;
+723         format "17"N best12. ;
+724         format "18"N best12. ;
+725         format "19"N best12. ;
+726         format "20"N best12. ;
+727         format "21"N best12. ;
+728         format "22"N best12. ;
+729         format "23"N best12. ;
+730         format "24"N best12. ;
+731         format "25"N best12. ;
+732         format "26"N best12. ;
+733         format "27"N best12. ;
+734         format "28"N best12. ;
+735         format "29"N best12. ;
+736         format "30"N best12. ;
+737         format "31"N best12. ;
+738         format "32"N best12. ;
+739         format "33"N best12. ;
+740         format "34"N best12. ;
+741         format "35"N best12. ;
+742         format "36"N best12. ;
+743         format "37"N best12. ;
+744         format "38"N best12. ;
+745         format "39"N best12. ;
+746         format "40"N best12. ;
+747         format "41"N best12. ;
+748         format "42"N best12. ;
+749         format "43"N best12. ;
+750         format "44"N best12. ;
+751         format "45"N best12. ;
+752         format "46"N best12. ;
+753         format "47"N best12. ;
+754         format "48"N best12. ;
+755         format "49"N best12. ;
+756         format "50"N best12. ;
+757         format "51"N best12. ;
+758         format "52"N best12. ;
+759         format "53"N best12. ;
+760         format "54"N best12. ;
+761         format "55"N best12. ;
+762         format "56"N best12. ;
+763         format "57"N best12. ;
+764         format "58"N best12. ;
+765         format "59"N best12. ;
+766         format "60"N best12. ;
+767         format "61"N best12. ;
+768         format "62"N best12. ;
+769         format "63"N best12. ;
+770         format "64"N best12. ;
+771         format "65"N best12. ;
+772         format "66"N best12. ;
+773         format "67"N best12. ;
+774         format "68"N best12. ;
+775         format "69"N best12. ;
+776         format "70"N best12. ;
+777         format "71"N best12. ;
+778         format "72"N best12. ;
+779         format "73"N best12. ;
+780         format "74"N best12. ;
+781         format "75"N best12. ;
+782         format "76"N best12. ;
+783         format "77"N best12. ;
+784         format "78"N best12. ;
+785         format "79"N best12. ;
+786         format "80"N best12. ;
+787         format "81"N best12. ;
+788         format "82"N best12. ;
+789         format "83"N best12. ;
+790         format "84"N best12. ;
+791         format "85"N $1. ;
+792         format "86"N best12. ;
+793         format "87"N best12. ;
+794         format "88"N best12. ;
+795         format "89"N best12. ;
+796         format "90"N best12. ;
+797         format "91"N best12. ;
+798         format "92"N best12. ;
+799         format "93"N best12. ;
+800         format "94"N best12. ;
+801         format "95"N best12. ;
+802         format "96"N best12. ;
+803         format "97"N best12. ;
+804         format "98"N best12. ;
+805         format "99"N best12. ;
+806         format "100"N best12. ;
+807         format "101"N best12. ;
+808         format "102"N best12. ;
+809         format "103"N best12. ;
+810         format "104"N best12. ;
+811         format "105"N best12. ;
+812         format "106"N best12. ;
+813         format "107"N best12. ;
+814         format "108"N best12. ;
+815         format "109"N $1. ;
+816         format "110"N $1. ;
+817         format "111"N $1. ;
+818         format "112"N best12. ;
+819         format "113"N best12. ;
+820         format "114"N best12. ;
+821         format "115"N best12. ;
+822         format "116"N best12. ;
+823         format "117"N best12. ;
+824         format "118"N best12. ;
+825         format "119"N best12. ;
+826         format "120"N best12. ;
+827         format "121"N best12. ;
+828         format "122"N best12. ;
+829         format "123"N best12. ;
+830         format "124"N best12. ;
+831         format "125"N best12. ;
+832         format "126"N best12. ;
+833         format "127"N best12. ;
+834         format "128"N best12. ;
+835         format "129"N best12. ;
+836         format "130"N best12. ;
+837         format "131"N best12. ;
+838         format "132"N best12. ;
+839         format "133"N best12. ;
+840         format "134"N best12. ;
+841         format "135"N best12. ;
+842         format "136"N best12. ;
+843         format "137"N best12. ;
+844         format "138"N best12. ;
+845         format "139"N best12. ;
+846         format "140"N best12. ;
+847         format "141"N best12. ;
+848         format "142"N best12. ;
+849         format "143"N best12. ;
+850         format "144"N best12. ;
+851         format "145"N best12. ;
+852         format "146"N best12. ;
+853         format "147"N best12. ;
+854         format "148"N best12. ;
+855         format "149"N best12. ;
+856         format "150"N best12. ;
+857         format "151"N best12. ;
+858         format "152"N best12. ;
+859         format "153"N best12. ;
+860         format "154"N best12. ;
+861         format "155"N best12. ;
+862         format "156"N best12. ;
+863         format "157"N $1. ;
+864         format "158"N $1. ;
+865         format "159"N best12. ;
+866         format "160"N best12. ;
+867         format "161"N best12. ;
+868         format "162"N best12. ;
+869         format "163"N best12. ;
+870         format "164"N best12. ;
+871         format "165"N best12. ;
+872         format "166"N best12. ;
+873         format "167"N best12. ;
+874         format "168"N best12. ;
+875         format "169"N best12. ;
+876         format "170"N best12. ;
+877         format "171"N best12. ;
+878         format "172"N best12. ;
+879         format "173"N best12. ;
+880         format "174"N best12. ;
+881         format "175"N best12. ;
+882         format "176"N best12. ;
+883         format "177"N best12. ;
+884         format "178"N best12. ;
+885         format "179"N best12. ;
+886         format "180"N best12. ;
+887         format "181"N best12. ;
+888         format "182"N best12. ;
+889         format "183"N best12. ;
+890         format "184"N best12. ;
+891         format "185"N best12. ;
+892         format "186"N best12. ;
+893         format "187"N best12. ;
+894         format "188"N best12. ;
+895         format "189"N best12. ;
+896         format "190"N best12. ;
+897         format "191"N best12. ;
+898         format "192"N best12. ;
+899         format "193"N best12. ;
+900         format "194"N best12. ;
+901         format "195"N best12. ;
+902         format "196"N best12. ;
+903         format "197"N best12. ;
+904         format "198"N best12. ;
+905         format "199"N best12. ;
+906         format "200"N best12. ;
+907         format "201"N best12. ;
+908         format "202"N best12. ;
+909         format "203"N best12. ;
+910         format "204"N best12. ;
+911         format "205"N best12. ;
+912         format "206"N best12. ;
+913         format "207"N best12. ;
+914         format "208"N best12. ;
+915         format "209"N best12. ;
+916         format "210"N best12. ;
+917         format "211"N best12. ;
+918         format "212"N best12. ;
+919         format "213"N best12. ;
+920         format "214"N best12. ;
+921         format "215"N best12. ;
+922         format "216"N best12. ;
+923         format "217"N best12. ;
+924         format "218"N best12. ;
+925         format "219"N best12. ;
+926         format "220"N $1. ;
+927         format "221"N best12. ;
+928         format "222"N best12. ;
+929         format "223"N best12. ;
+930         format "224"N best12. ;
+931         format "225"N best12. ;
+932         format "226"N best12. ;
+933         format "227"N best12. ;
+934         format "228"N best12. ;
+935         format "229"N best12. ;
+936         format "230"N best12. ;
+937         format "231"N best12. ;
+938         format "232"N best12. ;
+939         format "233"N best12. ;
+940         format "234"N best12. ;
+941         format "235"N best12. ;
+942         format "236"N best12. ;
+943         format "237"N best12. ;
+944         format "238"N best12. ;
+945         format "239"N best12. ;
+946         format "240"N best12. ;
+947         format "241"N best12. ;
+948         format "242"N best12. ;
+949         format "243"N best12. ;
+950         format "244"N $1. ;
+951         format "245"N $1. ;
+952         format "246"N $1. ;
+953         format "247"N best12. ;
+954         format "248"N best12. ;
+955         format "249"N best12. ;
+956         format "250"N best12. ;
+957         format "251"N best12. ;
+958         format "252"N best12. ;
+959         format "253"N best12. ;
+960         format "254"N best12. ;
+961         format "255"N best12. ;
+962         format "256"N best12. ;
+963         format "257"N best12. ;
+964         format "258"N best12. ;
+965         format "259"N best12. ;
+966         format "260"N best12. ;
+967         format "261"N best12. ;
+968         format "262"N best12. ;
+969         format "263"N best12. ;
+970         format "264"N best12. ;
+971         format "265"N best12. ;
+972         format "266"N best12. ;
+973         format "267"N best12. ;
+974         format "268"N best12. ;
+975         format "269"N best12. ;
+976         format "270"N best12. ;
+977         format "271"N best12. ;
+978         format "272"N best12. ;
+979         format "273"N best12. ;
+980         format "274"N best12. ;
+981         format "275"N best12. ;
+982         format "276"N best12. ;
+983         format "277"N best12. ;
+984         format "278"N best12. ;
+985         format "279"N best12. ;
+986         format "280"N best12. ;
+987         format "281"N best12. ;
+988         format "282"N best12. ;
+989         format "283"N best12. ;
+990         format "284"N best12. ;
+991         format "285"N best12. ;
+992         format "286"N best12. ;
+993         format "287"N best12. ;
+994         format "288"N best12. ;
+995         format "289"N best12. ;
+996         format "290"N best12. ;
+997         format "291"N best12. ;
+998         format "292"N $1. ;
+999         format "293"N $1. ;
+1000         format "294"N best12. ;
+1001         format "295"N best12. ;
+1002         format "296"N best12. ;
+1003         format "297"N best12. ;
+1004         format "298"N best12. ;
+1005         format "299"N best12. ;
+1006         format "300"N best12. ;
+1007         format "301"N best12. ;
+1008         format "302"N best12. ;
+1009         format "303"N best12. ;
+1010         format "304"N best12. ;
+1011         format "305"N best12. ;
+1012         format "306"N best12. ;
+1013         format "307"N best12. ;
+1014         format "308"N best12. ;
+1015         format "309"N best12. ;
+1016         format "310"N best12. ;
+1017         format "311"N best12. ;
+1018         format "312"N best12. ;
+1019         format "313"N best12. ;
+1020         format "314"N best12. ;
+1021         format "315"N best12. ;
+1022         format "316"N best12. ;
+1023         format "317"N best12. ;
+1024         format "318"N best12. ;
+1025         format "319"N best12. ;
+1026         format "320"N best12. ;
+1027         format "321"N best12. ;
+1028         format "322"N best12. ;
+1029         format "323"N best12. ;
+1030         format "324"N best12. ;
+1031         format "325"N best12. ;
+1032         format "326"N best12. ;
+1033         format "327"N best12. ;
+1034         format "328"N best12. ;
+1035         format "329"N best12. ;
+1036         format "330"N best12. ;
+1037         format "331"N best12. ;
+1038         format "332"N best12. ;
+1039         format "333"N best12. ;
+1040         format "334"N best12. ;
+1041         format "335"N best12. ;
+1042         format "336"N best12. ;
+1043         format "337"N best12. ;
+1044         format "338"N best12. ;
+1045         format "339"N best12. ;
+1046         format "340"N best12. ;
+1047         format "341"N best12. ;
+1048         format "342"N best12. ;
+1049         format "343"N best12. ;
+1050         format "344"N best12. ;
+1051         format "345"N best12. ;
+1052         format "346"N best12. ;
+1053         format "347"N best12. ;
+1054         format "348"N best12. ;
+1055         format "349"N best12. ;
+1056         format "350"N best12. ;
+1057         format "351"N best12. ;
+1058         format "352"N best12. ;
+1059         format "353"N best12. ;
+1060         format "354"N best12. ;
+1061         format "355"N best12. ;
+1062         format "356"N best12. ;
+1063         format "357"N best12. ;
+1064         format "358"N $1. ;
+1065         format "359"N best12. ;
+1066         format "360"N best12. ;
+1067         format "361"N best12. ;
+1068         format "362"N best12. ;
+1069         format "363"N best12. ;
+1070         format "364"N best12. ;
+1071         format "365"N best12. ;
+1072         format "366"N best12. ;
+1073         format "367"N best12. ;
+1074         format "368"N best12. ;
+1075         format "369"N best12. ;
+1076         format "370"N best12. ;
+1077         format "371"N best12. ;
+1078         format "372"N best12. ;
+1079         format "373"N best12. ;
+1080         format "374"N best12. ;
+1081         format "375"N best12. ;
+1082         format "376"N best12. ;
+1083         format "377"N best12. ;
+1084         format "378"N best12. ;
+1085         format "379"N best12. ;
+1086         format "380"N best12. ;
+1087         format "381"N best12. ;
+1088         format "382"N $1. ;
+1089         format "383"N $1. ;
+1090         format "384"N $1. ;
+1091         format "385"N best12. ;
+1092         format "386"N best12. ;
+1093         format "387"N best12. ;
+1094         format "388"N best12. ;
+1095         format "389"N best12. ;
+1096         format "390"N best12. ;
+1097         format "391"N best12. ;
+1098         format "392"N best12. ;
+1099         format "393"N best12. ;
+1100         format "394"N best12. ;
+1101         format "395"N best12. ;
+1102         format "396"N best12. ;
+1103         format "397"N best12. ;
+1104         format "398"N best12. ;
+1105         format "399"N best12. ;
+1106         format "400"N best12. ;
+1107         format "401"N best12. ;
+1108         format "402"N best12. ;
+1109         format "403"N best12. ;
+1110         format "404"N best12. ;
+1111         format "405"N best12. ;
+1112         format "406"N best12. ;
+1113         format "407"N best12. ;
+1114         format "408"N best12. ;
+1115         format "409"N best12. ;
+1116         format "410"N best12. ;
+1117         format "411"N best12. ;
+1118         format "412"N best12. ;
+1119         format "413"N best12. ;
+1120         format "414"N best12. ;
+1121         format "415"N best12. ;
+1122         format "416"N best12. ;
+1123         format "417"N best12. ;
+1124         format "418"N best12. ;
+1125         format "419"N best12. ;
+1126         format "420"N best12. ;
+1127         format "421"N best12. ;
+1128         format "422"N best12. ;
+1129         format "423"N best12. ;
+1130         format "424"N best12. ;
+1131         format "425"N best12. ;
+1132         format "426"N best12. ;
+1133         format "427"N best12. ;
+1134         format "428"N best12. ;
+1135         format "429"N best12. ;
+1136         format "430"N best12. ;
+1137         format "431"N best12. ;
+1138         format "432"N best12. ;
+1139         format "433"N best12. ;
+1140         format "434"N best12. ;
+1141         format "435"N best12. ;
+1142         format "436"N best12. ;
+1143         format "437"N best12. ;
+1144         format "438"N best12. ;
+1145         format "439"N best12. ;
+1146         format "440"N best12. ;
+1147         format "441"N best12. ;
+1148         format "442"N best12. ;
+1149         format "443"N best12. ;
+1150         format "444"N best12. ;
+1151         format "445"N best12. ;
+1152         format "446"N best12. ;
+1153         format "447"N best12. ;
+1154         format "448"N best12. ;
+1155         format "449"N best12. ;
+1156         format "450"N best12. ;
+1157         format "451"N best12. ;
+1158         format "452"N best12. ;
+1159         format "453"N best12. ;
+1160         format "454"N best12. ;
+1161         format "455"N best12. ;
+1162         format "456"N best12. ;
+1163         format "457"N best12. ;
+1164         format "458"N best12. ;
+1165         format "459"N best12. ;
+1166         format "460"N best12. ;
+1167         format "461"N best12. ;
+1168         format "462"N best12. ;
+1169         format "463"N best12. ;
+1170         format "464"N best12. ;
+1171         format "465"N best12. ;
+1172         format "466"N best12. ;
+1173         format "467"N best12. ;
+1174         format "468"N best12. ;
+1175         format "469"N best12. ;
+1176         format "470"N best12. ;
+1177         format "471"N best12. ;
+1178         format "472"N best12. ;
+1179         format "473"N best12. ;
+1180         format "474"N best12. ;
+1181         format "475"N best12. ;
+1182         format "476"N best12. ;
+1183         format "477"N best12. ;
+1184         format "478"N best12. ;
+1185         format "479"N best12. ;
+1186         format "480"N best12. ;
+1187         format "481"N best12. ;
+1188         format "482"N best12. ;
+1189         format "483"N best12. ;
+1190         format "484"N best12. ;
+1191         format "485"N best12. ;
+1192         format "486"N best12. ;
+1193         format "487"N best12. ;
+1194         format "488"N best12. ;
+1195         format "489"N best12. ;
+1196         format "490"N best12. ;
+1197         format "491"N best12. ;
+1198         format "492"N $1. ;
+1199         format "493"N best12. ;
+1200         format "494"N best12. ;
+1201         format "495"N best12. ;
+1202         format "496"N best12. ;
+1203         format "497"N best12. ;
+1204         format "498"N best12. ;
+1205         format "499"N best12. ;
+1206         format "500"N best12. ;
+1207         format "501"N best12. ;
+1208         format "502"N best12. ;
+1209         format "503"N best12. ;
+1210         format "504"N best12. ;
+1211         format "505"N best12. ;
+1212         format "506"N best12. ;
+1213         format "507"N best12. ;
+1214         format "508"N best12. ;
+1215         format "509"N best12. ;
+1216         format "510"N best12. ;
+1217         format "511"N best12. ;
+1218         format "512"N best12. ;
+1219         format "513"N best12. ;
+1220         format "514"N best12. ;
+1221         format "515"N best12. ;
+1222         format "516"N $1. ;
+1223         format "517"N $1. ;
+1224         format "518"N $1. ;
+1225         format "519"N best12. ;
+1226         format "520"N best12. ;
+1227         format "521"N best12. ;
+1228         format "522"N best12. ;
+1229         format "523"N best12. ;
+1230         format "524"N best12. ;
+1231         format "525"N best12. ;
+1232         format "526"N best12. ;
+1233         format "527"N best12. ;
+1234         format "528"N best12. ;
+1235         format "529"N best12. ;
+1236         format "530"N best12. ;
+1237         format "531"N best12. ;
+1238         format "532"N best12. ;
+1239         format "533"N best12. ;
+1240         format "534"N best12. ;
+1241         format "535"N best12. ;
+1242         format "536"N best12. ;
+1243         format "537"N best12. ;
+1244         format "538"N best12. ;
+1245         format "539"N best12. ;
+1246         format "540"N best12. ;
+1247         format "541"N best12. ;
+1248         format "542"N best12. ;
+1249         format "543"N best12. ;
+1250         format "544"N best12. ;
+1251         format "545"N best12. ;
+1252         format "546"N best12. ;
+1253         format "547"N best12. ;
+1254         format "548"N best12. ;
+1255         format "549"N best12. ;
+1256         format "550"N best12. ;
+1257         format "551"N best12. ;
+1258         format "552"N best12. ;
+1259         format "553"N best12. ;
+1260         format "554"N best12. ;
+1261         format "555"N best12. ;
+1262         format "556"N best12. ;
+1263         format "557"N best12. ;
+1264         format "558"N best12. ;
+1265         format "559"N best12. ;
+1266         format "560"N best12. ;
+1267         format "561"N best12. ;
+1268         format "562"N best12. ;
+1269         format "563"N best12. ;
+1270         format "564"N best12. ;
+1271         format "565"N best12. ;
+1272         format "566"N best12. ;
+1273         format "567"N best12. ;
+1274         format "568"N best12. ;
+1275         format "569"N best12. ;
+1276         format "570"N best12. ;
+1277         format "571"N best12. ;
+1278         format "572"N best12. ;
+1279         format "573"N best12. ;
+1280         format "574"N best12. ;
+1281         format "575"N best12. ;
+1282         format "576"N best12. ;
+1283         format "577"N best12. ;
+1284         format "578"N best12. ;
+1285         format "579"N best12. ;
+1286         format "580"N best12. ;
+1287         format "581"N best12. ;
+1288         format "582"N best12. ;
+1289         format "583"N best12. ;
+1290         format "584"N best12. ;
+1291         format "585"N best12. ;
+1292         format "586"N best12. ;
+1293         format "587"N best12. ;
+1294         format "588"N best12. ;
+1295         format "589"N best12. ;
+1296         format "Pass/Fail"N best12. ;
+1297         format Time datetime. ;
+1298      input
+1299                  "0"N
+1300                  "1"N
+1301                  "2"N
+1302                  "3"N
+1303                  "4"N
+1304                  "5"N
+1305                  "6"N
+1306                  "7"N
+1307                  "8"N
+1308                  "9"N
+1309                  "10"N
+1310                  "11"N
+1311                  "12"N
+1312                  "13"N
+1313                  "14"N
+1314                  "15"N
+1315                  "16"N
+1316                  "17"N
+1317                  "18"N
+1318                  "19"N
+1319                  "20"N
+1320                  "21"N
+1321                  "22"N
+1322                  "23"N
+1323                  "24"N
+1324                  "25"N
+1325                  "26"N
+1326                  "27"N
+1327                  "28"N
+1328                  "29"N
+1329                  "30"N
+1330                  "31"N
+1331                  "32"N
+1332                  "33"N
+1333                  "34"N
+1334                  "35"N
+1335                  "36"N
+1336                  "37"N
+1337                  "38"N
+1338                  "39"N
+1339                  "40"N
+1340                  "41"N
+1341                  "42"N
+1342                  "43"N
+1343                  "44"N
+1344                  "45"N
+1345                  "46"N
+1346                  "47"N
+1347                  "48"N
+1348                  "49"N
+1349                  "50"N
+1350                  "51"N
+1351                  "52"N
+1352                  "53"N
+1353                  "54"N
+1354                  "55"N
+1355                  "56"N
+1356                  "57"N
+1357                  "58"N
+1358                  "59"N
+1359                  "60"N
+1360                  "61"N
+1361                  "62"N
+1362                  "63"N
+1363                  "64"N
+1364                  "65"N
+1365                  "66"N
+1366                  "67"N
+1367                  "68"N
+1368                  "69"N
+1369                  "70"N
+1370                  "71"N
+1371                  "72"N
+1372                  "73"N
+1373                  "74"N
+1374                  "75"N
+1375                  "76"N
+1376                  "77"N
+1377                  "78"N
+1378                  "79"N
+1379                  "80"N
+1380                  "81"N
+1381                  "82"N
+1382                  "83"N
+1383                  "84"N
+1384                  "85"N  $
+1385                  "86"N
+1386                  "87"N
+1387                  "88"N
+1388                  "89"N
+1389                  "90"N
+1390                  "91"N
+1391                  "92"N
+1392                  "93"N
+1393                  "94"N
+1394                  "95"N
+1395                  "96"N
+1396                  "97"N
+1397                  "98"N
+1398                  "99"N
+1399                  "100"N
+1400                  "101"N
+1401                  "102"N
+1402                  "103"N
+1403                  "104"N
+1404                  "105"N
+1405                  "106"N
+1406                  "107"N
+1407                  "108"N
+1408                  "109"N  $
+1409                  "110"N  $
+1410                  "111"N  $
+1411                  "112"N
+1412                  "113"N
+1413                  "114"N
+1414                  "115"N
+1415                  "116"N
+1416                  "117"N
+1417                  "118"N
+1418                  "119"N
+1419                  "120"N
+1420                  "121"N
+1421                  "122"N
+1422                  "123"N
+1423                  "124"N
+1424                  "125"N
+1425                  "126"N
+1426                  "127"N
+1427                  "128"N
+1428                  "129"N
+1429                  "130"N
+1430                  "131"N
+1431                  "132"N
+1432                  "133"N
+1433                  "134"N
+1434                  "135"N
+1435                  "136"N
+1436                  "137"N
+1437                  "138"N
+1438                  "139"N
+1439                  "140"N
+1440                  "141"N
+1441                  "142"N
+1442                  "143"N
+1443                  "144"N
+1444                  "145"N
+1445                  "146"N
+1446                  "147"N
+1447                  "148"N
+1448                  "149"N
+1449                  "150"N
+1450                  "151"N
+1451                  "152"N
+1452                  "153"N
+1453                  "154"N
+1454                  "155"N
+1455                  "156"N
+1456                  "157"N  $
+1457                  "158"N  $
+1458                  "159"N
+1459                  "160"N
+1460                  "161"N
+1461                  "162"N
+1462                  "163"N
+1463                  "164"N
+1464                  "165"N
+1465                  "166"N
+1466                  "167"N
+1467                  "168"N
+1468                  "169"N
+1469                  "170"N
+1470                  "171"N
+1471                  "172"N
+1472                  "173"N
+1473                  "174"N
+1474                  "175"N
+1475                  "176"N
+1476                  "177"N
+1477                  "178"N
+1478                  "179"N
+1479                  "180"N
+1480                  "181"N
+1481                  "182"N
+1482                  "183"N
+1483                  "184"N
+1484                  "185"N
+1485                  "186"N
+1486                  "187"N
+1487                  "188"N
+1488                  "189"N
+1489                  "190"N
+1490                  "191"N
+1491                  "192"N
+1492                  "193"N
+1493                  "194"N
+1494                  "195"N
+1495                  "196"N
+1496                  "197"N
+1497                  "198"N
+1498                  "199"N
+1499                  "200"N
+1500                  "201"N
+1501                  "202"N
+1502                  "203"N
+1503                  "204"N
+1504                  "205"N
+1505                  "206"N
+1506                  "207"N
+1507                  "208"N
+1508                  "209"N
+1509                  "210"N
+1510                  "211"N
+1511                  "212"N
+1512                  "213"N
+1513                  "214"N
+1514                  "215"N
+1515                  "216"N
+1516                  "217"N
+1517                  "218"N
+1518                  "219"N
+1519                  "220"N  $
+1520                  "221"N
+1521                  "222"N
+1522                  "223"N
+1523                  "224"N
+1524                  "225"N
+1525                  "226"N
+1526                  "227"N
+1527                  "228"N
+1528                  "229"N
+1529                  "230"N
+1530                  "231"N
+1531                  "232"N
+1532                  "233"N
+1533                  "234"N
+1534                  "235"N
+1535                  "236"N
+1536                  "237"N
+1537                  "238"N
+1538                  "239"N
+1539                  "240"N
+1540                  "241"N
+1541                  "242"N
+1542                  "243"N
+1543                  "244"N  $
+1544                  "245"N  $
+1545                  "246"N  $
+1546                  "247"N
+1547                  "248"N
+1548                  "249"N
+1549                  "250"N
+1550                  "251"N
+1551                  "252"N
+1552                  "253"N
+1553                  "254"N
+1554                  "255"N
+1555                  "256"N
+1556                  "257"N
+1557                  "258"N
+1558                  "259"N
+1559                  "260"N
+1560                  "261"N
+1561                  "262"N
+1562                  "263"N
+1563                  "264"N
+1564                  "265"N
+1565                  "266"N
+1566                  "267"N
+1567                  "268"N
+1568                  "269"N
+1569                  "270"N
+1570                  "271"N
+1571                  "272"N
+1572                  "273"N
+1573                  "274"N
+1574                  "275"N
+1575                  "276"N
+1576                  "277"N
+1577                  "278"N
+1578                  "279"N
+1579                  "280"N
+1580                  "281"N
+1581                  "282"N
+1582                  "283"N
+1583                  "284"N
+1584                  "285"N
+1585                  "286"N
+1586                  "287"N
+1587                  "288"N
+1588                  "289"N
+1589                  "290"N
+1590                  "291"N
+1591                  "292"N  $
+1592                  "293"N  $
+1593                  "294"N
+1594                  "295"N
+1595                  "296"N
+1596                  "297"N
+1597                  "298"N
+1598                  "299"N
+1599                  "300"N
+1600                  "301"N
+1601                  "302"N
+1602                  "303"N
+1603                  "304"N
+1604                  "305"N
+1605                  "306"N
+1606                  "307"N
+1607                  "308"N
+1608                  "309"N
+1609                  "310"N
+1610                  "311"N
+1611                  "312"N
+1612                  "313"N
+1613                  "314"N
+1614                  "315"N
+1615                  "316"N
+1616                  "317"N
+1617                  "318"N
+1618                  "319"N
+1619                  "320"N
+1620                  "321"N
+1621                  "322"N
+1622                  "323"N
+1623                  "324"N
+1624                  "325"N
+1625                  "326"N
+1626                  "327"N
+1627                  "328"N
+1628                  "329"N
+1629                  "330"N
+1630                  "331"N
+1631                  "332"N
+1632                  "333"N
+1633                  "334"N
+1634                  "335"N
+1635                  "336"N
+1636                  "337"N
+1637                  "338"N
+1638                  "339"N
+1639                  "340"N
+1640                  "341"N
+1641                  "342"N
+1642                  "343"N
+1643                  "344"N
+1644                  "345"N
+1645                  "346"N
+1646                  "347"N
+1647                  "348"N
+1648                  "349"N
+1649                  "350"N
+1650                  "351"N
+1651                  "352"N
+1652                  "353"N
+1653                  "354"N
+1654                  "355"N
+1655                  "356"N
+1656                  "357"N
+1657                  "358"N  $
+1658                  "359"N
+1659                  "360"N
+1660                  "361"N
+1661                  "362"N
+1662                  "363"N
+1663                  "364"N
+1664                  "365"N
+1665                  "366"N
+1666                  "367"N
+1667                  "368"N
+1668                  "369"N
+1669                  "370"N
+1670                  "371"N
+1671                  "372"N
+1672                  "373"N
+1673                  "374"N
+1674                  "375"N
+1675                  "376"N
+1676                  "377"N
+1677                  "378"N
+1678                  "379"N
+1679                  "380"N
+1680                  "381"N
+1681                  "382"N  $
+1682                  "383"N  $
+1683                  "384"N  $
+1684                  "385"N
+1685                  "386"N
+1686                  "387"N
+1687                  "388"N
+1688                  "389"N
+1689                  "390"N
+1690                  "391"N
+1691                  "392"N
+1692                  "393"N
+1693                  "394"N
+1694                  "395"N
+1695                  "396"N
+1696                  "397"N
+1697                  "398"N
+1698                  "399"N
+1699                  "400"N
+1700                  "401"N
+1701                  "402"N
+1702                  "403"N
+1703                  "404"N
+1704                  "405"N
+1705                  "406"N
+1706                  "407"N
+1707                  "408"N
+1708                  "409"N
+1709                  "410"N
+1710                  "411"N
+1711                  "412"N
+1712                  "413"N
+1713                  "414"N
+1714                  "415"N
+1715                  "416"N
+1716                  "417"N
+1717                  "418"N
+1718                  "419"N
+1719                  "420"N
+1720                  "421"N
+1721                  "422"N
+1722                  "423"N
+1723                  "424"N
+1724                  "425"N
+1725                  "426"N
+1726                  "427"N
+1727                  "428"N
+1728                  "429"N
+1729                  "430"N
+1730                  "431"N
+1731                  "432"N
+1732                  "433"N
+1733                  "434"N
+1734                  "435"N
+1735                  "436"N
+1736                  "437"N
+1737                  "438"N
+1738                  "439"N
+1739                  "440"N
+1740                  "441"N
+1741                  "442"N
+1742                  "443"N
+1743                  "444"N
+1744                  "445"N
+1745                  "446"N
+1746                  "447"N
+1747                  "448"N
+1748                  "449"N
+1749                  "450"N
+1750                  "451"N
+1751                  "452"N
+1752                  "453"N
+1753                  "454"N
+1754                  "455"N
+1755                  "456"N
+1756                  "457"N
+1757                  "458"N
+1758                  "459"N
+1759                  "460"N
+1760                  "461"N
+1761                  "462"N
+1762                  "463"N
+1763                  "464"N
+1764                  "465"N
+1765                  "466"N
+1766                  "467"N
+1767                  "468"N
+1768                  "469"N
+1769                  "470"N
+1770                  "471"N
+1771                  "472"N
+1772                  "473"N
+1773                  "474"N
+1774                  "475"N
+1775                  "476"N
+1776                  "477"N
+1777                  "478"N
+1778                  "479"N
+1779                  "480"N
+1780                  "481"N
+1781                  "482"N
+1782                  "483"N
+1783                  "484"N
+1784                  "485"N
+1785                  "486"N
+1786                  "487"N
+1787                  "488"N
+1788                  "489"N
+1789                  "490"N
+1790                  "491"N
+1791                  "492"N  $
+1792                  "493"N
+1793                  "494"N
+1794                  "495"N
+1795                  "496"N
+1796                  "497"N
+1797                  "498"N
+1798                  "499"N
+1799                  "500"N
+1800                  "501"N
+1801                  "502"N
+1802                  "503"N
+1803                  "504"N
+1804                  "505"N
+1805                  "506"N
+1806                  "507"N
+1807                  "508"N
+1808                  "509"N
+1809                  "510"N
+1810                  "511"N
+1811                  "512"N
+1812                  "513"N
+1813                  "514"N
+1814                  "515"N
+1815                  "516"N  $
+1816                  "517"N  $
+1817                  "518"N  $
+1818                  "519"N
+1819                  "520"N
+1820                  "521"N
+1821                  "522"N
+1822                  "523"N
+1823                  "524"N
+1824                  "525"N
+1825                  "526"N
+1826                  "527"N
+1827                  "528"N
+1828                  "529"N
+1829                  "530"N
+1830                  "531"N
+1831                  "532"N
+1832                  "533"N
+1833                  "534"N
+1834                  "535"N
+1835                  "536"N
+1836                  "537"N
+1837                  "538"N
+1838                  "539"N
+1839                  "540"N
+1840                  "541"N
+1841                  "542"N
+1842                  "543"N
+1843                  "544"N
+1844                  "545"N
+1845                  "546"N
+1846                  "547"N
+1847                  "548"N
+1848                  "549"N
+1849                  "550"N
+1850                  "551"N
+1851                  "552"N
+1852                  "553"N
+1853                  "554"N
+1854                  "555"N
+1855                  "556"N
+1856                  "557"N
+1857                  "558"N
+1858                  "559"N
+1859                  "560"N
+1860                  "561"N
+1861                  "562"N
+1862                  "563"N
+1863                  "564"N
+1864                  "565"N
+1865                  "566"N
+1866                  "567"N
+1867                  "568"N
+1868                  "569"N
+1869                  "570"N
+1870                  "571"N
+1871                  "572"N
+1872                  "573"N
+1873                  "574"N
+1874                  "575"N
+1875                  "576"N
+1876                  "577"N
+1877                  "578"N
+1878                  "579"N
+1879                  "580"N
+1880                  "581"N
+1881                  "582"N
+1882                  "583"N
+1883                  "584"N
+1884                  "585"N
+1885                  "586"N
+1886                  "587"N
+1887                  "588"N
+1888                  "589"N
+1889                  "Pass/Fail"N
+1890                  Time
+1891      ;
+1892      if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+1893      run;
+NOTE: The infile REFFILE is:
+      Filename=secom.csv,
+      URI path=/files/files/f19a9579-6011-4146-95e1-bf6510f5ade0,
+      File Identifier=f19a9579-6011-4146-95e1-bf6510f5ade0,
+      Content Type=text/csv,
+      Content Disposition=attachment; filename*=UTF-8''secom.csv,
+      Encoding=UTF-8,Searchable=true,RECFM=V,
+      LRECL=32767,File Size (bytes)=5740611,
+      Last Modified=2025年11月18日 07時54分01秒,
+      Create Time=2025年11月18日 07時54分01秒
+NOTE: 1567 records were read from the infile REFFILE.
+      The minimum record length was 3024.
+      The maximum record length was 3814.
+NOTE: The data set WORK.SECOM has 1567 observations and 592 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.34 秒
+      cpu time            0.22 秒
+      
+1567 rows created in WORK.SECOM from REFFILE.
+  
+  
+  
+NOTE: WORK.SECOM 資料集已成功建立。
+NOTE: The data set WORK.SECOM has 1567 observations and 592 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           1.36 秒
+      cpu time            0.99 秒
+      
+1894  
+1895  PROC CONTENTS DATA=WORK.SECOM; RUN;
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.25 秒
+      cpu time            0.26 秒
+      
+NOTE: The PROCEDURE CONTENTS printed pages 1-13.
+1896  
+1897  
+1898  
+1899  
+1900  /* region: 已產生後序 */
+1901  /* 關閉 ODS 目的地 */
+1902  &graphterm; ;*';*";*/;run;quit;
+1903  quit;run;
+1904  ods html5 (id=web) close;
+1905  ods listing close;
+1906  %if %sysfunc(fileref(_gsfname)) lt 0 %then %do;
+1907      filename _gsfname clear;
+NOTE: Fileref _GSFNAME has been deassigned.
+1908  %end;
+1909  %studio_capture_custom_output;
+1910  /* endregion */
+1911  

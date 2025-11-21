@@ -1,0 +1,260 @@
+1     /* region: 已產生序文 */
+2     /* 請確認目前目錄可寫入 */
+3     data _null_;
+4         length rc 4;
+5         %let tworkloc="%sysfunc(getoption(work))";
+6         rc=dlgcdir(&tworkloc);
+7     run;
+NOTE: The current working directory is now 
+      "/opt/sas/viya/config/var/tmp/compsrv/default/7a476240-2993-42e6-9bab-7aa43d610bbc/SAS_work4AF900000174_sas-compute-server-ecc
+      4d1c8-ff27-4076-a29a-171695677b3c-p7dw2".
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+8     
+9     /* 設定選項 */
+10    title;
+11    footnote;
+12    options validvarname=any;
+13    options validmemname=extend;
+14    options dtreset date number;
+15    options device=png;
+16    
+17    /* 設定巨集變數 */
+18    %let syscc=0;
+19    %let _clientapp = %nrquote(%nrstr(SAS Studio));
+20    %let _clientappabbrev = %nrquote(%nrstr(Studio));
+21    %let _clientappversion=2024.09;
+22    %let _clientversion=;
+23    %let _sasservername=&SYSHOSTNAME;
+24    %let _sashostname=&SYSHOSTNAME;
+25    %let _sasprogramfilehost=&SYSHOSTNAME;
+26    %let _clientuserid = %nrquote(%nrstr(sandy@simentor.com.tw));
+27    %let _clientusername = %nrquote(%nrstr(sandy@simentor.com.tw));
+28    %let clientmachine = %nrquote(%nrstr());
+29    %let _clientmachine = %nrquote(%nrstr());
+30    %let _clientmode = %nrquote(%nrstr(viya));
+31    %let sasworklocation="%sysfunc(getoption(work))/";
+32    filename _cwd &sasworklocation;
+33    data _null_;
+34        call symput('_sasworkingdir',pathname('_cwd'));
+35    run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+36    filename _cwd;
+NOTE: Fileref _CWD has been deassigned.
+37    %let _sasprogramfile = %nrquote(%nrstr(sascontent:/files/files/6de1cb02-4f46-4685-ad78-8d0e06c3a991));
+38    %let _baseurl = %nrquote(%nrstr(https://azureuse011286.my-trials.sas.com/SASStudio/));
+39    %let _execenv = %nrquote(%nrstr(SASStudio));
+40    %symdel _dataout_mime_type _dataout_name _dataout_url _dataout_table / nowarn;
+41    %let _sasws_ = %bquote(%sysfunc(getoption(work)));
+42    %let _saswstemp_ = %bquote(%sysfunc(getoption(work)));
+43    
+44    /* 偵測到 SAS/Graph 和設定圖型選項 */
+45    data _null_;
+46        length rc $255;
+47        call symput("graphinit","");
+48        call symput("graphterm","");
+49        rc=tslvl('sasxgopt','n');
+50        _error_=0;
+51        if (rc^=' ') then do;
+52            call symput("graphinit","goptions reset=all gsfname=_gsfname;");
+53            call symput("graphterm","goptions noaccessible;");
+54        end;
+55    run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+56    data _null_;
+57        length rc 4;
+58        rc=sysprod("PRODNUM002");
+59        if (rc^=1) then do;
+60            call symput("graphinit","");
+61            call symput("graphterm","");
+62        end;
+63    run;
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+64    
+65    /* 設定 ODS 目的地 */
+66    ods _all_ close;
+67    %studio_results_directory;
+68    filename _htmlout "&_results_prefix_..html";
+69    filename _listout "&_results_prefix_..lst";
+70    filename _gsfname temp;
+71    filename _dataout "&_results_prefix_..dat";
+72    ods autonavigate off;
+73    ods graphics on;
+74    ods html5 (id=web) METATEXT='http-equiv="Content-Security-Policy" content="default-src ''none''; style-src ''unsafe-inline'';
+74  ! img-src data: ;"' device=png gpath="&_saswstemp_" path="&_saswstemp_" encoding=utf8 file=_htmlout (title='結果:
+74  ! step1_cleaned.sas') style=Illuminate options(bitmap_mode='inline' outline='on' svg_mode='inline'
+74  ! css_prefix=".ods_&SYS_COMPUTE_JOB_ID" body_id="div_&SYS_COMPUTE_JOB_ID" );
+NOTE: Writing HTML5(WEB) Body file: _HTMLOUT
+75    ods listing file=_listout;
+76    &graphinit;
+77    %studio_initialize_custom_output;
+78    /* endregion */
+79    
+80    proc contents data=work.secom out=_v0 noprint;
+81    run;
+NOTE: The data set WORK._V0 has 592 observations and 41 variables.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+82    /*=======SECOM_CLEANED=============*/
+83    /*修改欄位名稱(0–589->v0–v589/Labels)*/
+84    data _v_rename;
+85    set _v0;
+86    num=input(name,??best12.);
+87    if type=1 and 0<=num<=589 then do;
+88      old=cats("'",name,"'n");
+89      new=cats('v',strip(name));
+90      rename_spec=cats(old,'=',new);
+91      output;
+92    end;
+93    run;
+NOTE: There were 592 observations read from the data set WORK._V0.
+NOTE: The data set WORK._V_RENAME has 570 observations and 45 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+94    
+95    proc sql noprint;
+96    select rename_spec into :rename_list separated by ' '
+97    from _v_rename
+98    order by num;
+NOTE: The query as specified involves ordering by an item that doesn't appear in its SELECT clause.
+99    quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+100   
+101   data _s;
+102   set work.secom(rename=(&rename_list));
+103   
+104   Label='Pass/Fail'n;
+105   drop 'Pass/Fail'n;
+106   
+107   /*前處理→datetime/衍生欄位*/
+108   length Time_dt 8;  /*修改日期格式*/
+109   if vtype(Time)='C' then Time_dt=input(strip(Time),anydtdtm.);
+110   else if vtype(Time)='N' then Time_dt=Time;
+111   format Time_dt datetime20.;
+112   
+113   Date_part=datepart(Time_dt);
+114   Hour_part=hour(Time_dt);
+115   Quarter_num=qtr(Date_part);
+116   DOW_num=weekday(Date_part);
+117   
+118   length Shift $2 Quarter $2 IsWeekend $1 DOW $3;
+119   
+120   /* 班別：S1=日班(8–15), S2=小夜(16–23), S3=大夜(0–7) */
+121   if 8<=Hour_part<16 then Shift='S1';
+122   else if 16<=Hour_part<24 then Shift='S2';
+123   else Shift='S3';
+124   
+125   /* 季別：Q1–Q4 */
+126   if 1<=Quarter_num<=4 then Quarter=cats('Q',Quarter_num);
+127   
+128   /* 星期：D1–D7 */
+129   if 1<=DOW_num<=7 then DOW=cats('D',DOW_num);
+130   
+131   /* 是否週末：1=週末(六日), 0=平日 */
+132   if DOW_num in(1,7) then IsWeekend='1';
+133   else IsWeekend='0';
+134   
+135   /* 清掉中間用不到的欄位；Time_dt 取代 Time */
+136   drop Time Date_part Hour_part Quarter_num DOW_num;
+137   rename Time_dt=Time;
+138   run;
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      109:45   
+NOTE: There were 1567 observations read from the data set WORK.SECOM.
+NOTE: The data set WORK._S has 1567 observations and 596 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.02 秒
+      cpu time            0.02 秒
+      
+139   
+140   /* 抓 v0–v589 的變數清單，準備補缺失 */
+141   proc contents data=_s out=_v2 noprint;
+142   run;
+NOTE: The data set WORK._V2 has 596 observations and 41 variables.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+143   
+144   data _v2;
+145   set _v2;
+146   if substr(name,1,1)='v' then do;
+147     num=input(substr(name,2),??best12.);
+148     if 0<=num<=589 then output;
+149   end;
+150   run;
+NOTE: There were 596 observations read from the data set WORK._V2.
+NOTE: The data set WORK._V2 has 570 observations and 42 variables.
+NOTE: DATA 陳述式 used (Total process time):
+      real time           0.00 秒
+      cpu time            0.01 秒
+      
+151   
+152   proc sql noprint;
+153   select name into :sensor_list separated by ' '
+154   from _v2
+155   order by num;
+NOTE: The query as specified involves ordering by an item that doesn't appear in its SELECT clause.
+156   quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.00 秒
+      cpu time            0.00 秒
+      
+157   
+158   /* 對 v0–v589 用中位數補缺失 → SECOM_CLEANED */
+159   proc stdize data=_s out=work.secom_cleaned method=median reponly;
+160   var &sensor_list;
+161   run;
+NOTE: There were 1567 observations read from the data set WORK._S.
+NOTE: The data set WORK.SECOM_CLEANED has 1567 observations and 596 variables.
+NOTE: PROCEDURE STDIZE used (Total process time):
+      real time           0.02 秒
+      cpu time            0.03 秒
+      
+162   
+163   /* 清理後的 Label 分佈 */
+164   title "SECOM_CLEANED 的 Label 分佈";
+165   proc freq data=work.secom_cleaned;
+166   tables Label;
+167   run;
+NOTE: There were 1567 observations read from the data set WORK.SECOM_CLEANED.
+NOTE: The PROCEDURE FREQ printed page 15.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.01 秒
+      cpu time            0.01 秒
+      
+168   title;
+169   
+170   
+171   
+172   /* region: 已產生後序 */
+173   /* 關閉 ODS 目的地 */
+174   &graphterm; ;*';*";*/;run;quit;
+175   quit;run;
+176   ods html5 (id=web) close;
+177   ods listing close;
+178   %if %sysfunc(fileref(_gsfname)) lt 0 %then %do;
+179       filename _gsfname clear;
+NOTE: Fileref _GSFNAME has been deassigned.
+180   %end;
+181   %studio_capture_custom_output;
+182   /* endregion */
+183   
