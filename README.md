@@ -9,9 +9,7 @@ https://www.kaggle.com/code/christianmagnusingul/uci-secom-semiconductor-manufac
 
 ![Process flowchart](docs/flowcharts/Process%20Flowchart.png)
 
-
-
-
+```text
 UCI-SECOM\
 │  README.md
 │  .gitignore
@@ -81,7 +79,7 @@ UCI-SECOM\
    └─flowcharts\ 
          Process Flowchart.png
 
-
+```
 
 
 
