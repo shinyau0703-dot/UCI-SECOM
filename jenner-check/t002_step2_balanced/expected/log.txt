@@ -1,0 +1,46 @@
+NOTE: Jenner v1.5.30 (build v1.5.30+unknown.20260715T062217Z.x86_64-unknown-linux-gnu)
+
+NOTE: Option OBS changed to 100.
+NOTE: DATA work.secom_cleaned
+
+NOTE: Processing inline DATALINES (24 lines)
+
+NOTE: Read 24 rows from DATALINES.
+NOTE: Wrote work.secom_cleaned (24 rows, 3 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC SQL 
+
+NOTE: Macro variable N1 = 5
+NOTE: Macro variable N_1 = 19
+NOTE: PROC SQL statement used.
+NOTE: DATA pos neg
+
+NOTE: Multi-output DATA step splits stream into: pos neg
+
+NOTE: Read 24 rows from work.secom_cleaned.
+NOTE: Wrote pos (5 rows, 3 columns).
+NOTE: Wrote neg (19 rows, 3 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC SURVEYSELECT data=neg
+
+NOTE: PROC SURVEYSELECT completed.
+NOTE: DATA work.secom_balanced
+
+
+NOTE: Read 5 rows from pos.
+NOTE: Read 10 rows from neg_samp.
+NOTE: Wrote work.secom_balanced (10 rows, 4 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: Option TITLE changed to SECOM_BALANCED 的 Label 分佈.
+NOTE: PROC FREQ
+NOTE: ODS plot written: freq_label.spec.json
+NOTE: PROC FREQ statement used.
+NOTE: PROC PRINT data=work.secom_balanced
+
+NOTE: PROC PRINT completed: 10 observations printed, 3 variables

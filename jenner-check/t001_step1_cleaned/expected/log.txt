@@ -1,0 +1,63 @@
+NOTE: Jenner v1.5.30 (build v1.5.30+unknown.20260715T062217Z.x86_64-unknown-linux-gnu)
+
+NOTE: Option OBS changed to 100.
+NOTE: Option VALIDVARNAME changed to ANY.
+NOTE: DATA work.secom
+
+NOTE: Processing inline DATALINES (24 lines)
+
+NOTE: Read 24 rows from DATALINES.
+NOTE: Wrote work.secom (24 rows, 22 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC CONTENTS data=work.secom
+
+NOTE: PROC CONTENTS: OUT=_v0 created with 22 variables
+NOTE: PROC CONTENTS: data=work.secom obs=24 vars=22 (NOPRINT)
+NOTE: DATA _v_rename
+
+
+NOTE: Read 22 rows from _v0.
+NOTE: Wrote _v_rename (20 rows, 20 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC SQL 
+
+NOTE: Macro variable RENAME_LIST = '0'n=v0 '1'n=v1 '2'n=v2 '3'n=v3 '4'n=v4 '5'n=v5 '6'n=v6 '7'n=v7 '8'n=v8 '9'n=v9 '50'n=v50 '100'n=v100 '150'n=v150 '200'n=v200 '300'n=v300 '400'n=v400 '500'n=v500 '550'n=v550 '588'n=v588 '589'n=v589
+NOTE: PROC SQL statement used.
+NOTE: DATA _s
+
+
+NOTE: Read 24 rows from work.secom.
+NOTE: Wrote _s (24 rows, 26 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC CONTENTS data=_s
+
+NOTE: PROC CONTENTS: OUT=_v2 created with 26 variables
+NOTE: PROC CONTENTS: data=_s obs=24 vars=26 (NOPRINT)
+NOTE: DATA _v2
+
+
+NOTE: Read 26 rows from _v2.
+NOTE: Wrote _v2 (20 rows, 17 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC SQL 
+
+NOTE: Macro variable SENSOR_LIST = v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v50 v100 v150 v200 v300 v400 v500 v550 v588 v589
+NOTE: PROC SQL statement used.
+NOTE: PROC STDIZE data=_s
+
+NOTE: PROC STDIZE: Wrote 24 rows to work.secom_cleaned
+NOTE: Option TITLE changed to SECOM_CLEANED 的 Label 分佈.
+NOTE: PROC FREQ
+NOTE: ODS plot written: freq_label.spec.json
+NOTE: PROC FREQ statement used.
+NOTE: PROC PRINT data=work.secom_cleaned
+
+NOTE: PROC PRINT completed: 10 observations printed, 7 variables

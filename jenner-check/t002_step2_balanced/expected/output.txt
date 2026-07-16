@@ -1,0 +1,31 @@
+
+The SURVEYSELECT Procedure
+
+Selection Method     SRS
+Input Data Set       neg
+Number of Obs Read   19
+Sample Size          5
+Sampling Weight      3.8000
+                                            SECOM_BALANCED 的 Label 分佈
+
+                                                   The FREQ Procedure
+
+                                   Cumulative    Cumulative
+Label    Frequency    Percent     Frequency      Percent
+--------------------------------------------------------------
+-1               5     50.00            5        50.00
+1                5     50.00           10       100.00
+
+  Obs  Label       v0    v589
+-----  -----  -------  ------
+    1      1  3030.93   82.31
+    2      1  2847.81   33.45
+    3      1   3017.5   71.58
+    4      1  3030.17  112.58
+    5      1  3111.93   84.43
+    6     -1  3055.66   21.06
+    7     -1  3017.39   48.48
+    8     -1  3018.57   48.21
+    9     -1  2851.68    70.5
+   10     -1  3038.57  368.89
+

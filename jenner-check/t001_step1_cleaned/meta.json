@@ -1,0 +1,7 @@
+{
+  "bundle": "t001_step1_cleaned",
+  "source_file": "sas/step1_cleaned.sas",
+  "source_blob_sha": "99b38c18506a23322b2bbd5c25c56145d74a6e1d",
+  "source_commit": "291e97fd59408e35fe19315e36350dfa452d05a0",
+  "notes": "Renames raw numeric sensor columns (0..589) to v0..v589 via PROC CONTENTS + PROC SQL-built macro var, derives Shift/Quarter/DOW/IsWeekend from Time, median-imputes sensor values via PROC STDIZE -> SECOM_CLEANED. Only the WORK.SECOM import was added, as inline DATALINES (24 rows x 20 of the repo's 590 sensor columns, sampled from data/raw/secom_merged.csv, including real missing values) since the shipped runner uploads script text only, no data files. The repo's step1_cleaned.sas logic runs unmodified."
+}
