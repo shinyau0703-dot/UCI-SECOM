@@ -1,0 +1,7 @@
+{
+  "bundle": "t002_step2_balanced",
+  "source_file": "sas/step2_balanced.sas",
+  "source_blob_sha": "12fbc496831c0a6169af86dd6185878379f18102",
+  "source_commit": "291e97fd59408e35fe19315e36350dfa452d05a0",
+  "notes": "Downsamples the majority Label class to match the minority class count via PROC SURVEYSELECT (SRS, seed=12345) -> SECOM_BALANCED. Only the WORK.SECOM_CLEANED block was added, as a small imbalanced (5 vs 19) inline sample shaped like the real output of the repo's own step1_cleaned.sas (see t001_step1_cleaned), so step2 runs standalone. The repo's step2_balanced.sas logic runs unmodified; downsampling to a 50/50 split was verified reproducible across two runs with the same seed."
+}
